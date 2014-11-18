@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    {% load staticfiles %}
+    <link href="{% static "css/record.css" %}" type="text/css" rel="stylesheet" />
+    <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" />
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "vendor/bootstrap/js/bootstrap.min.js" %}"></script>
+    <link href="{% static "vendor/jquery-ui/jquery-ui.min.css" %}" rel="stylesheet" />
+    <script src="{% static "vendor/jquery-ui/jquery-ui.min.js" %}"></script>
+</head>
+<body>
+
+    <h1>你好，世界！</h1>
+<div class="wrapper">
+    <div class="header"><a href="/r">记录</a>      <a href="/l">查看</a></div>
+    <div class="map">
+        <div class="mapheader">
+            <select><option value="a">A</option></select>
+            <select><option value="1">1</option></select>
+        </div>
+        <div class="mapbody">
+             <img src="http://map.tqybw.net/ditu/beijing/picture/2013044773.jpg"/>
+        </div>
+    </div>
+    <div class="record_form">
+        <form>
+            <table>
+                <tr><td>开始日期</td><td><input type="text" id="start_date"/></td></tr>
+                <tr><td>结束日期</td><td><input type="text" id="end_date"/></td></tr>
+            </table>
+        </form>
+        <form>
+        <table>
+            <tr><td>日期</td><td>dfad</td></tr>
+            <tr><td>义工</td><td>abff</td></tr>
+        </table>
+        </form>
+    </div>
+</div>
+<script>
+  $(function() {
+    $( "#start_date" ).datepicker();
+    $( "#end_date" ).datepicker();
+  });
+</script>
+</body>
+</html>

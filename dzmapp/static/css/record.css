@@ -1,0 +1,64 @@
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;}
+body,button,input,select,textarea{font:13px/1.6 Microsoft YaHei,SimSun,tahoma,arial,sans-serif;}
+a:link,a:visited{color:#7f7f7f;text-decoration:none;}
+img{width:100%; height=100%}
+
+
+body{
+    font: 62.5% "Trebuchet MS", sans-serif;
+    margin: 50px;
+}
+.demoHeaders {
+    margin-top: 2em;
+}
+#dialog-link {
+    padding: .4em 1em .4em 20px;
+    text-decoration: none;
+    position: relative;
+}
+#dialog-link span.ui-icon {
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: .2em;
+    top: 50%;
+    margin-top: -8px;
+}
+#icons {
+    margin: 0;
+    padding: 0;
+}
+#icons li {
+    margin: 2px;
+    position: relative;
+    padding: 4px 0;
+    cursor: pointer;
+    float: left;
+    list-style: none;
+}
+#icons span.ui-icon {
+    float: left;
+    margin: 0 4px;
+}
+.fakewindowcontain .ui-widget-overlay {
+    position: absolute;
+}
+
+.wrapper{
+background:#aaa;
+width:960px;
+text-align:center;margin:0 auto;
+}
+.wrapper .header{
+width:100%;
+text-align:center;margin:0 auto;
+}
+.wrapper .map{
+float:left;
+width:40%;
+}
+
+.wrapper .record_form{
+float:left;
+width:60%;
+
+}
