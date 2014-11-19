@@ -1,30 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <link href="static/css/record.css" type="text/css"  rel="stylesheet" />
-</head>
-<body>
-<div class="wrapper">
-    <div class="header"><a href="/r">记录</a>      <a href="/l">查看</a></div>
-    <div class="map">
-        <div class="mapheader">
-            <select><option value="a">A</option></select>
-            <select><option value="1">1</option></select>
-        </div>
-        <div class="mapbody">
-             <img src="http://map.tqybw.net/ditu/beijing/picture/2013044773.jpg"/>
-        </div>
-    </div>
-    <div class="record_form">
-        <form>
-        <table>
-            <tr><td>日期</td><td>dfad</td></tr>
-            <tr><td>义工</td><td><input type="text"/></td></tr>
+{% extends "base_generic.html" %}
+
+{% load staticfiles %}
+
+{% block title %}记录{% endblock %}
+{% block jsextra %}
+<script src="{% static "js/r.js" %}"></script>
+{% endblock %}
+
+
+{% block record_form %}
+        <form id="record_form" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="bmapx"/>
+        <input type="hidden" name="bmapy"/>
+        <input type="hidden" name="map_level1"/>
+        <input type="hidden" name="map_level2"/>
+        <table border="1" width="100%">
+            <tr><td>日期</td><td><input type="text" name="visit_date" id="visit_date"/></td></tr>
+            <tr><td>胡同(街)</td><td><input type="text" name="street"/></td></tr>
+            <tr><td>门牌</td><td><input type="text" name="num"/></td></tr>
+            <tr><td>反应</td><td><input type="radio" name="response" value="1"/>继续<input type="radio" name="response" value="0"/>拒绝</td></tr>
+            <tr><td>义工</td><td><input type="text" name="volunteer"/></td></tr>
+            <tr><td colspan="2"><label>保存前请在地图上点击地址</label></td></tr>
+            <tr><td colspan="2"><input type="button" onclick="saveform_submit()" value="记录"/></td></tr>
         </table>
         </form>
-    </div>
-</div>
-</body>
-</html>
+{% endblock %}
