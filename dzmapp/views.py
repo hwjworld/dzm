@@ -3,7 +3,8 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
 from dzmapp.models import *
 from dzmapp.forms import *
-import datetime
+import datetime,time
+
 
 def home(request):
     now = datetime.datetime.now()
@@ -51,7 +52,19 @@ def record(request):
 def new_record(request):
     return record(request)
 
+def getTime(dtstr):
+    time = datetime.datetime.strptime(dtstr, '%Y%m%d')
+    return time.strftime('%Y-%m-%d')
+
 def date_search_lookup(request,start_date,end_date):
-    rs = P_Record.objects.all();
-    return render_to_response('lookup.html',{'records':rs})
+    rs = P_Record.objects.filter(visit_date__lte=getTime(end_date),visit_date__gte=getTime(start_date))
+    r_accept = 0
+    r_reject = 0
+    for r in rs:
+        if r.response == '1':
+            r_accept = r_accept + 1
+        else:
+            r_reject = r_reject + 1
+    rs_sum = {'a':r_accept,'r':r_reject}
+    return render_to_response('lookup.html',{'records':rs,'rs_sum':rs_sum})
 

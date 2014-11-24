@@ -8,9 +8,11 @@
 {% block record_form %}
         <form id="searchform">
             <table>
-                <tr><td>开始日期</td><td><input type="text" id="start_date"/></td>
-                <td>结束日期</td><td><input type="text" id="end_date"/></td>
-                 <td><input type="button" onclick="seachform_submit()" value="查看记录"/></td>
+                <tr><td>开始日期</td><td><input type="text" id="start_date" readOnly="true" /></td>
+                <td>结束日期</td><td><input type="text" id="end_date" readOnly="true"/></td>
+                 <td><input type="button" onclick="seachform_submit()" value="查看记录"/></td>&nbsp;
+                 <td><input type="button" onclick="thismonth_submit()" value="  本月  "/></td>&nbsp;
+                 <td><input type="button" onclick="lastmonth_submit()" value="  上月  "/></td>&nbsp;
                 </tr>
 
             </table>
@@ -24,5 +26,10 @@
 {% else %}
 <tr><td colspan="6">要多多做工作</tr>
 {% endif %}
+        </table>
+        <br/>
+        <table border="1" width="50%">
+        <tr><td>接受</td><td>拒绝</td></tr>
+        <tr><td>{{ rs_sum.a }}人</td><td>{{ rs_sum.r }}人</td></tr>
         </table>
 {% endblock %}
