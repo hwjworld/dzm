@@ -21,6 +21,11 @@
 	#mapbody {width: 100%;height: 500px;overflow: hidden;margin:0;font-family:"微软雅黑";}
 	</style>
     <script src="{% static "js/datetime.js" %}"></script>
+    <script language="javascript">
+var a1points = [{style:"solid",weight:3,color:"#f00",opacity:0.6,points:["116.400083|39.955121","116.40028|39.951637","116.405976|39.95172","116.405832|39.954568","116.404862|39.954554","116.404538|39.95519","116.400101|39.955135"]}];
+var a2points = [{style:"solid",weight:3,color:"#f00",opacity:0.6,points:["116.400298|39.951609","116.400406|39.947074","116.401538|39.946977","116.402364|39.946534","116.403155|39.947032","116.406191|39.947143","116.405976|39.95172","116.400298|39.951609"]}
+		 ];
+    </script>
 </head>
 <body>
 
@@ -29,7 +34,10 @@
     <div class="map">
         <div class="mapheader">
             <select><option value="a" id="map_level1">A</option></select>
-            <select id="selectedmap" onchange="changemap(this)"><option value="1" id="map_level2"  mapx="116.402401" mapy="39.953403">1</option><option value="2" id="map_level2" mapx="116.403048" mapy="39.949835">2</option></select>
+            <select id="selectedmap" onchange="changemap(this);">
+                <option value="1" id="map_level2"  mapx="116.402401" mapy="39.953403" mappoly="a1points">1</option>
+                <option value="2" id="map_level2" mapx="116.403048" mapy="39.949835" mappoly="a2points">2</option>
+            </select>
         </div>
         <div id="mapbody" class="mapbody">
         </div>

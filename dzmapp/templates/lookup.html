@@ -3,6 +3,17 @@
 
 {% block jsextra %}
 <script src="{% static "js/l.js" %}"></script>
+<script language="javascript">
+ var data_info = [
+ {% if records|length > 0 %}
+  {% for  v in records %}
+  [{{ v.map_x }},{{ v.map_y }},"{{v.num}} {% ifequal v.response "1" %}续访{% endifequal %}{% ifequal v.response "0" %}拒绝{% endifequal %}"],
+  {% endfor %}
+{% endif %}
+];
+$(document).ready(function(){addMarkPoints(data_info);});
+
+</script>
 {% endblock %}
 
 {% block record_form %}

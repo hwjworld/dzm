@@ -3,12 +3,10 @@
 	map.centerAndZoom(point, 17);
 	map.enableScrollWheelZoom()
 
+    var geolocationControl = new BMap.GeolocationControl();
+    map.addControl(geolocationControl);
     //-----------points mark------------
-	function addMarkPoints(){
-        var data_info = [[116.417854,39.921988,"地址：北京市东城区王府井大街88号乐天银泰百货八层"],
-                         [116.406605,39.921585,"地址：北京市东城区东华门大街"],
-                         [116.412222,39.912345,"地址：北京市东城区正义路甲5号"]
-                        ];
+	function addMarkPoints(data_info){
         var opts = {
                     width : 250,     //
                     height: 80,     // 信息窗口高度
@@ -37,12 +35,20 @@
     //-----------points mark------------
 
 	var overlays = [];
+	var linelays = [];
 	function clearAll() {
 		for(var i = 0; i < overlays.length; i++){
             map.removeOverlay(overlays[i]);
         }
         overlays.length = 0
     }
+
+	function remove_linelays(){
+		for(var i = 0; i < linelays.length; i++){
+            map.removeOverlay(linelays[i]);
+        }
+        linelays.length = 0
+	}
 	map.addEventListener("click",function(e){
 	    setPointOnMap(e.point.lng,e.point.lat);
 	    setBmapXY(e.point.lng,e.point.lat);
@@ -58,11 +64,27 @@
     function changemap(e){
         x=$("#selectedmap option:selected").attr("mapx");
         y=$("#selectedmap option:selected").attr("mapy");
+		remove_linelays();
+		vf = $("#selectedmap option:selected").attr("mappoly");
+        addPolyline(eval(vf));
 	    map.panTo(new BMap.Point(x,y));
     }
-
-
-
+    //------------添加折线---------------
+    function addPolyline(plPoints){
+		for(var i=0;i<plPoints.length;i++){
+			var json = plPoints[i];
+			var points = [];
+			for(var j=0;j<json.points.length;j++){
+				var p1 = json.points[j].split("|")[0];
+				var p2 = json.points[j].split("|")[1];
+				points.push(new BMap.Point(p1,p2));
+			}
+			var line = new BMap.Polyline(points,{strokeStyle:json.style,strokeWeight:json.weight,strokeColor:json.color,strokeOpacity:json.opacity});
+			map.addOverlay(line);
+			linelays[linelays.length] = line;
+		}
+	}
+	//---------------------------------
 	var geolocation = new BMap.Geolocation();
 	geolocation.getCurrentPosition(function(r){
 		if(this.getStatus() == BMAP_STATUS_SUCCESS){
