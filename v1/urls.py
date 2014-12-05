@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from dzmapp.apps.map.views import *
+from dzmapp.apps.map.mapop import *
 
 urlpatterns = patterns('',
     # Examples:
@@ -7,6 +9,23 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+)
+# maps
+urlpatterns += patterns('dzmapp.apps.map.views',
+    url(r'^map/$', 'mapedit'),
+    url(r'^map/check$', 'check'),
+    url(r'^map/manage$', 'manage'),
+    url(r'^map/s', 'savemap'),
+    url(r'^map/d', 'deletemap'),
+
+)
+# -1 = list
+# 0 = minimun value
+urlpatterns += patterns('',
+    url(r'^map/level1/$', 'dzmapp.apps.map.mapop.getMap',{'level1':'-1','level2':'-1'}),
+    url(r'^map/level1/(?P<level1>\w{1})$', 'dzmapp.apps.map.mapop.getMap',{'level2':'0'}),
+    url(r'^map/level1/(?P<level1>\w{1})/level2/$', 'dzmapp.apps.map.mapop.getMap',{'level2':'-1'}),
+    url(r'^map/level1/(?P<level1>\w{1})/level2/(?P<level2>\w+)', 'dzmapp.apps.map.mapop.getMap'),
 )
 # lookup
 urlpatterns += patterns('',

@@ -7,7 +7,7 @@
  var data_info = [
  {% if records|length > 0 %}
   {% for  v in records %}
-  [{{ v.map_x }},{{ v.map_y }},"{{v.num}} {% ifequal v.response "1" %}续访{% endifequal %}{% ifequal v.response "0" %}拒绝{% endifequal %}"],
+  [{{ v.householder.map_x }},{{ v.householder.map_y }}],
   {% endfor %}
 {% endif %}
 ];
@@ -29,10 +29,18 @@ $(document).ready(function(){addMarkPoints(data_info);});
             </table>
         </form>
         <table border="1" width="100%">
-            <tr><td>日期</td><td>胡同(街)</td><td>门牌</td><td>反应</td><td>义工</td></tr>
+            <tr><td>日期</td><td>姓名</td><td>性别</td><td>胡同(街)</td><td>门牌</td><td>反应</td><td>义工</td></tr>
 {% if records|length > 0 %}
   {% for  v in records %}
-    <tr name="recordtr" id="record-{{ v.id }}" mapx="{{ v.map_x }}" mapy="{{ v.map_y }}"><td>{{v.visit_date|date:"Y-m-d D"}}<td>{{v.street}}</td><td>{{v.num}}</td><td>{% ifequal v.response "1" %}续访{% endifequal %}{% ifequal v.response "0" %}拒绝{% endifequal %}</td><td>{{v.volunteer}}</td></tr>
+    <tr name="recordtr" id="record-{{ v.id }}" mapx="{{ v.householder.map_x }}" mapy="{{ v.householder.map_y }}">
+        <td>{{v.visit_date|date:"Y-m-d D"}}</td>
+        <td>{{v.householder.name}}</td>
+        <td>{% ifequal v.householder.sex "1" %}男{% endifequal %}{% ifequal v.householder.sex "0" %}女{% endifequal %}{% ifequal v.householder.sex "2" %}其他{% endifequal %}</td>
+        <td>{{v.householder.street}}</td>
+        <td>{{v.householder.num}}</td>
+        <td>{% ifequal v.householder.response "1" %}续访{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}</td>
+        <td>{{v.volunteer}}</td>
+    </tr>
   {% endfor %}
 {% else %}
 <tr><td colspan="6">要多多做工作</tr>

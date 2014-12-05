@@ -1,0 +1,27 @@
+{% extends "maps/map_base.html" %}
+{% load staticfiles %}
+
+{% block jsextra %}
+<script src="{% static 'js/map_manage.js' %}"></script>
+{% endblock %}
+
+{% block record_form %}
+<form id="mapaddform">
+    {% csrf_token %}
+    大地区:<input name="level1" type="text" maxlength="2"/>
+    子地区:<input name="level2" type="text" maxlength="2"/>
+    Polyline:<input name="polyline" type="text" />
+    缩放级别:<input name="zoom" type="text" name="level1" readonly="readonly" />
+    中心位置点X:<input name="mapx" type="text" readonly="readonly" />
+    中心位置点Y:<input name="mapy" type="text" readonly="readonly" />
+        <br/>
+        <input type="button" onclick="saveMap()" value="保存"/>  <a href="/static/html/createbaimap.htm" target="_blank">打开地区画区工具</a>
+</form>
+        <hr/>
+        <hr/>
+<form id="mapdeleteform">
+    大地区:<input name="level1" type="text" />
+    子地区:<input name="level2" type="text" />
+        <input type="button" onclick="deleteMap()" value="删除"/>
+</form>
+{% endblock %}

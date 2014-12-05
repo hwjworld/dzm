@@ -1,0 +1,16 @@
+{% extends "maps/map_base.html" %}
+{% load staticfiles %}
+
+{% block jsextra %}
+<script src="{% static 'js/map_manage.js' %}"></script>
+{% endblock %}
+
+{% block record_form %}
+<select class="mapslist" multiple="multiple" size="25" style="width:70%">
+{% if maps|length > 0 %}
+  {% for  m in maps %}
+  <option value="{{ m.mappolyline }}">{{ m.level1 }}-{{ m.level2 }}</option>
+  {% endfor %}
+{% endif %}
+</select>
+{% endblock %}

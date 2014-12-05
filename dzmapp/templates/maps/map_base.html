@@ -3,15 +3,14 @@
 <head lang="en">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta charset="UTF-8">
-    <title></title>
+    <title>地区管理</title>
     {% load staticfiles %}
-    <link href="{% static 'css/record.css' %}" type="text/css" rel="stylesheet" />
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-    <link href="{% static 'vendor/jquery-ui/jquery-ui.min.css' %}" rel="stylesheet" />
-    <script src="{% static 'vendor/jquery-ui/jquery-ui.min.js' %}"></script>
-    <script src="{% static 'js/base_generic.js' %}"></script>
+    <link href="{% static "css/map_manage.css" %}" type="text/css" rel="stylesheet" />
+    <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" />
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "vendor/bootstrap/js/bootstrap.min.js" %}"></script>
+    <link href="{% static "vendor/jquery-ui/jquery-ui.min.css" %}" rel="stylesheet" />
+    <script src="{% static "vendor/jquery-ui/jquery-ui.min.js" %}"></script>
     {% block jsextra %}{% endblock %}
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=09d48141d5414f05ba70c871b77934dd"></script>
 	<!--<script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=09d48141d5414f05ba70c871b77934dd&v=1.0"></script>-->
@@ -22,22 +21,22 @@
     <style type="text/css">
 	#mapbody {width: 100%;height: 500px;overflow: hidden;margin:0;font-family:"微软雅黑";}
 	</style>
-    <script src="{% static "js/datetime.js" %}"></script>
+    <script language="javascript">
+var a1points = [{style:"solid",weight:3,color:"#f00",opacity:0.6,points:["116.400083|39.955121","116.40028|39.951637","116.405976|39.95172","116.405832|39.954568","116.404862|39.954554","116.404538|39.95519","116.400101|39.955135"]}];
+var a2points = [{style:"solid",weight:3,color:"#f00",opacity:0.6,points:["116.400298|39.951609","116.400406|39.947074","116.401538|39.946977","116.402364|39.946534","116.403155|39.947032","116.406191|39.947143","116.405976|39.95172","116.400298|39.951609"]}
+		 ];
+    </script>
 </head>
 <body>
 
 <div class="wrapper">
-    <div class="header"><h2><a href="/r">记录</a>      <a href="/l">查看</a></h2></div>
+    <div class="header"><h2><a href="/map/check">检查</a>      <a href="/map/manage">修改</a></h2></div>
     <div class="map">
-        <div class="mapheader">
-            <select id="map_select_level1"></select>
-            <select id="map_select_level2"></select>
-        </div>
         <div id="mapbody" class="mapbody">
         </div>
     </div>
     <div class="record_form">
-    {% block record_form %}Site{% endblock %}
+    {% block record_form %}欢迎你,亲爱的!{% endblock %}
     </div>
 </div>
 <script src="{% static "js/bmap.js" %}"></script>

@@ -37,54 +37,55 @@
 	var overlays = [];
 	var linelays = [];
 	function clearAll() {
+		remove_overlays();
+        remove_linelays();
+    }
+
+	function remove_overlays(){
 		for(var i = 0; i < overlays.length; i++){
             map.removeOverlay(overlays[i]);
         }
-        overlays.length = 0
-    }
-
+        overlays.length = 0;
+	}
 	function remove_linelays(){
 		for(var i = 0; i < linelays.length; i++){
             map.removeOverlay(linelays[i]);
         }
-        linelays.length = 0
+        linelays.length = 0;
 	}
 	map.addEventListener("click",function(e){
 	    setPointOnMap(e.point.lng,e.point.lat);
 	    setBmapXY(e.point.lng,e.point.lat);
 	});
 	function setPointOnMap(x,y){
-	    clearAll();
+	    remove_overlays();
         var marker = new BMap.Marker(new BMap.Point(x,y));
         map.addOverlay(marker);
 	    map.panTo(new BMap.Point(x,y));
         overlays[0] = marker;
 	}
 
-    function changemap(e){
-        x=$("#selectedmap option:selected").attr("mapx");
-        y=$("#selectedmap option:selected").attr("mapy");
-		remove_linelays();
-		vf = $("#selectedmap option:selected").attr("mappoly");
-        addPolyline(eval(vf));
-	    map.panTo(new BMap.Point(x,y));
-    }
     //------------添加折线---------------
+    //return firstpoint
     function addPolyline(plPoints){
-		for(var i=0;i<plPoints.length;i++){
-			var json = plPoints[i];
-			var points = [];
-			for(var j=0;j<json.points.length;j++){
-				var p1 = json.points[j].split("|")[0];
-				var p2 = json.points[j].split("|")[1];
-				points.push(new BMap.Point(p1,p2));
-			}
-			var line = new BMap.Polyline(points,{strokeStyle:json.style,strokeWeight:json.weight,strokeColor:json.color,strokeOpacity:json.opacity});
-			map.addOverlay(line);
-			linelays[linelays.length] = line;
-		}
+        ps = plPoints.split(",");
+        var points = [];
+        var firstpoint = null;
+        for(var j=0;j<ps.length;j++){
+            ps[j] = ps[j].replace(/\"/g,"");
+            var p1 = ps[j].split("|")[0];
+            var p2 = ps[j].split("|")[1];
+            if(j==0){firstpoint = new BMap.Point(p1,p2);}
+            points.push(new BMap.Point(p1,p2));
+        }
+
+        var line = new BMap.Polyline(eval(points),{strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});
+        map.addOverlay(line);
+        linelays[linelays.length] = line;
+        return firstpoint;
 	}
 	//---------------------------------
+	/*
 	var geolocation = new BMap.Geolocation();
 	geolocation.getCurrentPosition(function(r){
 		if(this.getStatus() == BMAP_STATUS_SUCCESS){
@@ -96,6 +97,7 @@
 			alert('你在哪里，我不知道,555~~~');
 		}
 	},{enableHighAccuracy: true})
+	*/
 
 	function setBmapXY(x,y){
         $("#record_form input[name='bmapx']").val(x);
