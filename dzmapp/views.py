@@ -1,21 +1,24 @@
-from django.shortcuts import render
+import datetime,time
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse,HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from dzmapp.models import *
 from dzmapp.forms import *
-import datetime,time
+
 
 
 def home(request):
     now = datetime.datetime.now()
-    html = "<html><body>It is now %s.</body></html>" % now
+    html = "<html><body>%s.<a href='/accounts/login'>login</login></body></html>" % now
     return HttpResponse(html)
 
 
+@login_required
 def lookup(request):
     now = datetime.datetime.now()
     return render_to_response('lookup.html')
 
+@login_required
 def record(request):
     def setRecordValue(request,p_v,p_m,p_h):
         p_r = P_Record(
@@ -62,8 +65,9 @@ def getTime(dtstr):
     time = datetime.datetime.strptime(dtstr, '%Y%m%d')
     return time.strftime('%Y-%m-%d')
 
+@login_required
 def date_search_lookup(request,start_date,end_date):
-    rs = P_Record.objects.filter(visit_date__lte=getTime(end_date),visit_date__gte=getTime(start_date))
+    rs = P_Record.objects.filter(visit_date__lte=getTime(end_date),visit_date__gte=getTime(start_date)).order_by('visit_date')
     r_accept = 0
     r_reject = 0
     for r in rs:

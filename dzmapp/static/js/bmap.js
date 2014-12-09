@@ -1,8 +1,8 @@
 	var map = new BMap.Map("mapbody");
 	var point = new BMap.Point(116.404, 39.915);
 	map.centerAndZoom(point, 17);
-	map.enableScrollWheelZoom()
-
+	map.enableScrollWheelZoom();
+    var geoc = new BMap.Geocoder();
     var geolocationControl = new BMap.GeolocationControl();
     map.addControl(geolocationControl);
     //-----------points mark------------
@@ -23,8 +23,8 @@
 
 	function addClickHandler(content,marker){
 		marker.addEventListener("click",function(e){
-			openInfo(content,e)}
-		);
+            openInfo(content,e);
+        });
 	}
 	function openInfo(content,e){
 		var p = e.target;
@@ -56,6 +56,11 @@
 	map.addEventListener("click",function(e){
 	    setPointOnMap(e.point.lng,e.point.lat);
 	    setBmapXY(e.point.lng,e.point.lat);
+        var pt = e.point;
+        geoc.getLocation(pt, function(rs){
+            var addComp = rs.addressComponents;
+            $("#record_form input[name='street']").val(addComp.district + ", " + addComp.street+ ","+addComp.streetNumber);
+        });
 	});
 	function setPointOnMap(x,y){
 	    remove_overlays();

@@ -1,11 +1,9 @@
 import string
-from django.shortcuts import render
-from django.shortcuts import render_to_response
-from django.http import HttpResponse,JsonResponse
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
+import json
+from django.shortcuts import render,render_to_response
+from django.http import HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-import simplejson as json
 from dzmapp.models import *
 
 #返回polyline or list

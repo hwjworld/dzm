@@ -9,5 +9,5 @@ function saveform_submit(){
     record_form.submit();
 }
 $(document).ready(function(){
-    $( "#visit_date" ).datepicker({ dateFormat: "yy-mm-dd" });
+    $( "#visit_date" ).val(formatDate(now)).datepicker({ dateFormat: "yy-mm-dd" });
 });

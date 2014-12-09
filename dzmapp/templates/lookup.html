@@ -38,12 +38,12 @@ $(document).ready(function(){addMarkPoints(data_info);});
         <td>{% ifequal v.householder.sex "1" %}男{% endifequal %}{% ifequal v.householder.sex "0" %}女{% endifequal %}{% ifequal v.householder.sex "2" %}其他{% endifequal %}</td>
         <td>{{v.householder.street}}</td>
         <td>{{v.householder.num}}</td>
-        <td>{% ifequal v.householder.response "1" %}续访{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}</td>
+        <td>{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}</td>
         <td>{{v.volunteer}}</td>
     </tr>
   {% endfor %}
 {% else %}
-<tr><td colspan="6">要多多做工作</tr>
+<tr><td colspan="7">要多多做工作</tr>
 {% endif %}
         </table>
         <br/>

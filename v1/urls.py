@@ -10,6 +10,13 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 )
+# volunteer
+urlpatterns += patterns('',
+    url(r'^accounts/init_users', 'dzmapp.apps.volunteer.views.init_users', name="init_users"),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout_then_login'),
+    url(r'^accounts/login_ajax$', 'dzmapp.apps.volunteer.views.login_ajax', name="login_ajax"),
+)
 # maps
 urlpatterns += patterns('dzmapp.apps.map.views',
     url(r'^map/$', 'mapedit'),

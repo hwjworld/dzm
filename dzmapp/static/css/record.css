@@ -49,7 +49,19 @@ width:960px;
 text-align:center;margin:0 auto;
 }
 .wrapper .header{
+background:#95CACA;
+float:left;
 width:100%;
+text-align:center;margin:0 auto;
+}
+.wrapper .header .headerleft{
+float:left;
+width:70%;
+text-align:center;margin:0 auto;
+}
+.wrapper .header .headerright{
+float:left;
+width:25%;
 text-align:center;margin:0 auto;
 }
 .wrapper .map{

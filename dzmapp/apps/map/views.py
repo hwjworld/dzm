@@ -1,24 +1,29 @@
 import string
 from django.shortcuts import render
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from dzmapp.models import *
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 
+@login_required
 def mapedit(request):
     return render_to_response('maps/map_base.html')
 
 
+@login_required
 def check(request):
     maps = P_Map.objects.order_by('level1','level2')
     print (maps)
     return render_to_response('maps/check.html',{'maps':maps})
 
+@login_required
 def manage(request):
     return render_to_response('maps/edit.html')
 
 @csrf_exempt
+@login_required
 def savemap(request):
     if request.method == 'POST':
         try:
@@ -37,6 +42,7 @@ def savemap(request):
         return HttpResponse("Thanks.", content_type="text/plain")
 
 @csrf_exempt
+@login_required
 def deletemap(request):
     if request.method == 'POST':
         try:
