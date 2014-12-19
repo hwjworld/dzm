@@ -93,7 +93,6 @@ return formatDate(lastMonthEndDate);
 
 //获得本季度的开端日期
 function getQuarterStartDate(){
-
 var quarterStartDate = new Date(nowYear, getQuarterStartMonth(), 1);
 return formatDate(quarterStartDate);
 }

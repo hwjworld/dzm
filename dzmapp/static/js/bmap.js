@@ -1,38 +1,10 @@
 	var map = new BMap.Map("mapbody");
 	var point = new BMap.Point(116.404, 39.915);
-	map.centerAndZoom(point, 17);
+	map.centerAndZoom(point, 16);
 	map.enableScrollWheelZoom();
     var geoc = new BMap.Geocoder();
     var geolocationControl = new BMap.GeolocationControl();
     map.addControl(geolocationControl);
-    //-----------points mark------------
-	function addMarkPoints(data_info){
-        var opts = {
-                    width : 250,     //
-                    height: 80,     // 信息窗口高度
-                    title : "信息窗口" , // 信息窗口标题
-                    enableMessage:true//设置允许信息窗发送短息
-                   };
-        for(var i=0;i<data_info.length;i++){
-            var marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));  // 创建标注
-            var content = data_info[i][2];
-            map.addOverlay(marker);               // 将标注添加到地图中
-            addClickHandler(content,marker);
-        }
-	}
-
-	function addClickHandler(content,marker){
-		marker.addEventListener("click",function(e){
-            openInfo(content,e);
-        });
-	}
-	function openInfo(content,e){
-		var p = e.target;
-		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
-		map.openInfoWindow(infoWindow,point); //开启信息窗口
-	}
-    //-----------points mark------------
 
 	var overlays = [];
 	var linelays = [];
@@ -53,7 +25,7 @@
         }
         linelays.length = 0;
 	}
-	map.addEventListener("click",function(e){
+	mapclick_fun = function(e){
 	    setPointOnMap(e.point.lng,e.point.lat);
 	    setBmapXY(e.point.lng,e.point.lat);
         var pt = e.point;
@@ -61,13 +33,18 @@
             var addComp = rs.addressComponents;
             $("#record_form input[name='street']").val(addComp.district + ", " + addComp.street+ ","+addComp.streetNumber);
         });
-	});
+	};
+	map.addEventListener("click",mapclick_fun);
 	function setPointOnMap(x,y){
 	    remove_overlays();
         var marker = new BMap.Marker(new BMap.Point(x,y));
         map.addOverlay(marker);
 	    map.panTo(new BMap.Point(x,y));
         overlays[0] = marker;
+	}
+
+	function moveToPoint(x,y){
+	    map.panTo(new BMap.Point(x,y));
 	}
 
     //------------添加折线---------------
@@ -108,3 +85,51 @@
         $("#record_form input[name='bmapx']").val(x);
         $("#record_form input[name='bmapy']").val(y);
     }
+
+    var opts = {
+                width : 250,     //
+                height: 80,     // 信息窗口高度
+                title : "受访者信息" , // 信息窗口标题
+                enableMessage:false//设置允许信息窗发送短息
+               };
+    //-----------points mark------------
+
+	function addAcceptMarkPoints(data_info){
+	    addMarkPoints(data_info,1);
+	}
+
+	function addRefuseMarkPoints(data_info){
+	    addMarkPoints(data_info,0);
+	}
+	function addMarkPoints(data_info,response){
+        var accept_icon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+            offset: new BMap.Size(10, 25), // 指定定位位置
+            imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+            });
+        for(var i=0;i<data_info.length;i++){
+            var marker = null;
+            if(response == 1){
+                marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]),{icon:accept_icon});
+            }else if(response == 0){
+                marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));
+            }
+            var content = data_info[i][2];
+            map.addOverlay(marker);               // 将标注添加到地图中将标注添加到地图中
+		    addClickHandler(content,marker);
+        }
+        map.removeEventListener("click",mapclick_fun);
+	}
+
+	function addClickHandler(content,marker){
+		marker.addEventListener("click",function(e){
+			openInfo(content,e)}
+		);
+	}
+	function openInfo(content,e){
+		var p = e.target;
+		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
+		map.openInfoWindow(infoWindow,point); //开启信息窗口
+	}
+
+    //-----------points mark------------

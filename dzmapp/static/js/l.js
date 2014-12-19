@@ -25,11 +25,17 @@ function frommonth_submit(){
     ed = $("#end_date").val(formatDate(now)).val().replace(/-/gm,'');
     window.location.href = "/l/" + sd + "-" + ed;
 }
+function csvexport_submit(){
+    sd = $("#start_date").val().replace(/-/gm,'');
+    ed = $("#end_date").val().replace(/-/gm,'');
+    window.location.href = "/csv/" + sd + "-" + ed;
+}
+
 
 $(document).ready(function(){
     $( "#start_date" ).datepicker({ dateFormat: "yy-mm-dd" });
     $( "#end_date" ).datepicker({ dateFormat: "yy-mm-dd" });
     $("[name='recordtr']").mouseover(function(){$(this).css("background","#FFD2D2");}).mouseout(function(){$(this).css("background","");}).click(function(){
-        setPointOnMap($(this).attr("mapx"),$(this).attr("mapy"))
+        moveToPoint($(this).attr("mapx"),$(this).attr("mapy"))
     });
 });

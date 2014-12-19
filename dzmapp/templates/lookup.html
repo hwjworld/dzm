@@ -4,29 +4,45 @@
 {% block jsextra %}
 <script src="{% static "js/l.js" %}"></script>
 <script language="javascript">
- var data_info = [
+ var accept_data_info = [
  {% if records|length > 0 %}
   {% for  v in records %}
-  [{{ v.householder.map_x }},{{ v.householder.map_y }}],
+    {% ifequal v.householder.response "1" %}
+  [{{ v.householder.map_x }},{{ v.householder.map_y }},"{{ v.householder.name }},{{v.householder.num}},{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}, {{v.visit_date|date:"Y-m-d D"}}来过."],
+    {% endifequal %}
   {% endfor %}
 {% endif %}
 ];
-$(document).ready(function(){addMarkPoints(data_info);});
+ var refuse_data_info = [
+ {% if records|length > 0 %}
+  {% for  v in records %}
+    {% ifequal v.householder.response "0" %}
+  [{{ v.householder.map_x }},{{ v.householder.map_y }},"{{ v.householder.name }},{{v.householder.num}},{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}, {{v.visit_date|date:"Y-m-d D"}}来过."],
+    {% endifequal %}
+  {% endfor %}
+{% endif %}
+];
+$(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMarkPoints(refuse_data_info);});
 
 </script>
 {% endblock %}
 
 {% block record_form %}
         <form id="searchform">
-            <table>
-                <tr><td>开始日期</td><td><input type="text" id="start_date" readOnly="true" /></td>
-                <td>结束日期</td><td><input type="text" id="end_date" readOnly="true"/></td>
-                 <td><input type="button" onclick="seachform_submit()" value="查看记录"/></td>&nbsp;
-                 <td><input type="button" onclick="thismonth_submit()" value="  本月  "/></td>&nbsp;
-                 <td><input type="button" onclick="lastmonth_submit()" value="  上月  "/></td>&nbsp;
-                 <td><input type="button" onclick="frommonth_submit()" value="  最近30天  "/></td>&nbsp;
+            <table style="margin-top:15px;">
+                <tr>
+                    <td>开始日期</td>
+                    <td><input type="text" id="start_date" readOnly="true" value="{{ start_date }}" /></td>
+                    <td>结束日期</td>
+                    <td><input type="text" id="end_date" readOnly="true" value="{{ end_date }}"/></td>
+                    <td><input type="button" onclick="seachform_submit()" value=" 查看记录 "/></td>
+                    <td><input type="button" onclick="thismonth_submit()" value="  本月  "/></td>
+                    <td><input type="button" onclick="lastmonth_submit()" value="  上月  "/></td>
+                    <td><input type="button" onclick="frommonth_submit()" value="  最近30天  "/></td>
                 </tr>
-
+                <tr align="left">
+                    <td colspan="8"><input type="button" onclick="csvexport_submit()" value=" 导出CSV "/>
+                </tr>
             </table>
         </form>
         <table border="1" width="100%">
@@ -50,6 +66,6 @@ $(document).ready(function(){addMarkPoints(data_info);});
         <br/>
         <table border="1" width="50%">
         <tr><td>接受</td><td>拒绝</td></tr>
-        <tr><td>{{ rs_sum.a }}人</td><td>{{ rs_sum.r }}人</td></tr>
+        <tr><td>{{ rs_sum.a }}次</td><td>{{ rs_sum.r }}次</td></tr>
         </table>
 {% endblock %}

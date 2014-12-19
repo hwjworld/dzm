@@ -42,6 +42,7 @@ urlpatterns += patterns('',
     # url(r'^l/(?P<month>\d{6})/$', 'dzmapp.views.month_lookup'),
     # url(r'^l/(?P<day>\d{8})/$', 'dzmapp.views.day_lookup'),
     url(r'^l/(?P<start_date>\d{8})-(?P<end_date>\d{8})$', 'dzmapp.views.date_search_lookup'),
+    url(r'^csv/(?P<start_date>\d{8})-(?P<end_date>\d{8})$', 'dzmapp.views.csv_export'),
 )
 # add record
 urlpatterns += patterns('',
