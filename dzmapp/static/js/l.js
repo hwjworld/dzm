@@ -18,6 +18,13 @@ function lastmonth_submit(){
     ed = $("#end_date").val(getLastMonthEndDate()).val().replace(/-/gm,'');
     window.location.href = "/l/" + sd + "-" + ed;
 }
+function frommonth_submit(){
+    recent30daystart = new Date();
+    recent30daystart.setDate(-(30-recent30daystart.getDate()));
+    sd = $("#start_date").val(formatDate(recent30daystart)).val().replace(/-/gm,'');
+    ed = $("#end_date").val(formatDate(now)).val().replace(/-/gm,'');
+    window.location.href = "/l/" + sd + "-" + ed;
+}
 
 $(document).ready(function(){
     $( "#start_date" ).datepicker({ dateFormat: "yy-mm-dd" });
