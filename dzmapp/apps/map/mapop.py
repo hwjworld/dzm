@@ -32,7 +32,7 @@ def getMap(request,level1,level2):
         rs = []
         for i in ps:
             if i.level2 not in rs:
-                rs.append(i.level2)
+                rs.append([i.level2,i.mappolyline])
         return HttpResponse(json.dumps(rs))
     # return polyline
     else:

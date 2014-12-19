@@ -20,14 +20,14 @@ def login_ajax(request):
         if user.is_active:
             login(request, user)
             # Redirect to a success page.
-            return redirect('/l')
+            return redirect('/menu')
 
         else:
-            return redirect_to_login('/l')
+            return redirect_to_login('/menu')
             # return("disabled account")
             # Return a 'disabled account' error message
     else:
-        return redirect_to_login('/l')
+        return redirect_to_login('/menu')
         # return render_to_response('/login/')
         # return ("invalid login")
         # Return an 'invalid login' error message.

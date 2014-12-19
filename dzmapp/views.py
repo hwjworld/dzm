@@ -9,9 +9,11 @@ from dzmapp.forms import *
 
 def home(request):
     now = datetime.datetime.now()
-    html = "<html><body>%s.<a href='/accounts/login'>login</login></body></html>" % now
+    html = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'/></head><body>%s.<p><a href='/accounts/login'>login</a></p></body></html>" % now
     return HttpResponse(html)
 
+def menu(request):
+    return render_to_response('menu.html')
 
 @login_required
 def lookup(request):
