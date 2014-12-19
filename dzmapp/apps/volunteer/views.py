@@ -9,9 +9,8 @@ from django.http import HttpResponse
 
 
 def init_users(request):
-    User.objects.create_user('hwj', 'hwj@j.com', 'hwj123456')
+    # User.objects.create_user('hwj', 'hwj@j.com', 'hwj123456')
     User.objects.create_user('ty', 'ty@j.com', 'ty123456')
-    User.objects.create_user('jdy', 'jdy@j.com', 'jdy123456')
     return HttpResponse('suc')
 
 def login_ajax(request):

@@ -48,3 +48,8 @@ urlpatterns += patterns('',
 urlpatterns += patterns('',
     url(r'^r$', 'dzmapp.views.new_record'),
 )
+
+# mobile
+urlpatterns += patterns('',
+    url(r'^m$', 'dzmapp.apps.mobile.views.m', name="m"),
+)
