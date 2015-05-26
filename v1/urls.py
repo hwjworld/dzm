@@ -56,6 +56,6 @@ urlpatterns += patterns('',
 # user
 urlpatterns += patterns('',
     url(r'^users/$', 'dzmapp.apps.volunteer.views.users', name="users"),
-    url(r'^/users/add$', 'dzmapp.apps.volunteer.views.user_add', name="user"),
+    url(r'^/users/add$', 'dzmapp.apps.volunteer.views.user_add', name="user_add"),
 
 )
