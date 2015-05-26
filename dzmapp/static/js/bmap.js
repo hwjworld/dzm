@@ -97,12 +97,18 @@
 	function addAcceptMarkPoints(data_info){
 	    addMarkPoints(data_info,1);
 	}
-
 	function addRefuseMarkPoints(data_info){
 	    addMarkPoints(data_info,0);
 	}
+	function addVisitedMarkPoints(data_info){
+	    addMarkPoints(data_info,2);
+	}
 	function addMarkPoints(data_info,response){
         var accept_icon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+            offset: new BMap.Size(10, 25), // 指定定位位置
+            imageOffset: new BMap.Size(0, 0 - 0 * 25) // 设置图片偏移
+            });
+        var visited_icon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
             offset: new BMap.Size(10, 25), // 指定定位位置
             imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
             });
@@ -112,6 +118,8 @@
                 marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]),{icon:accept_icon});
             }else if(response == 0){
                 marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));
+            }else if(response == 2){
+                marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]),{icon:visited_icon});
             }
             var content = data_info[i][2];
             map.addOverlay(marker);               // 将标注添加到地图中将标注添加到地图中

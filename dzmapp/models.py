@@ -35,6 +35,7 @@ class P_householder(models.Model):
     RESPONSE_CHOICE = (
         ('1','Accept'),
         ('0','Refuse'),
+        ('2','Visited'),
     )
     response = models.CharField(
         max_length = 2,

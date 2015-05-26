@@ -72,12 +72,15 @@ def date_search_lookup(request,start_date,end_date):
     rs = date_search(start_date,end_date)
     r_accept = 0
     r_reject = 0
+    r_visited = 0
     for r in rs:
         if r.householder.response == '1':
             r_accept = r_accept + 1
-        else:
+        elif r.householder.response == '0':
             r_reject = r_reject + 1
-    rs_sum = {'a':r_accept,'r':r_reject}
+        else:
+            r_visited = r_visited + 1
+    rs_sum = {'a':r_accept,'r':r_reject,'v':r_visited}
     return render_to_response('lookup.html',{'records':rs,'rs_sum':rs_sum,'start_date':getTime(start_date),'end_date':getTime(end_date)})
 
 

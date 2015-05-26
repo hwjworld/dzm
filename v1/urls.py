@@ -53,3 +53,9 @@ urlpatterns += patterns('',
 urlpatterns += patterns('',
     url(r'^m$', 'dzmapp.apps.mobile.views.m', name="m"),
 )
+# user
+urlpatterns += patterns('',
+    url(r'^users/$', 'dzmapp.apps.volunteer.views.users', name="users"),
+    url(r'^/users/add$', 'dzmapp.apps.volunteer.views.user_add', name="user"),
+
+)

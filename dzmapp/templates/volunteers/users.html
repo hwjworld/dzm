@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<table border="1">
+ {% if volunteers|length > 0 %}
+  {% for u in volunteers %}
+    <tr><td>{{u.username}}</td><td>{{u.email}}</td></tr>
+  {% endfor %}
+{% endif %}
+</table>
+<form action="{% url 'user_add' %}" method="post">
+    {% csrf_token %}
+    <table>
+        <tr><td>Username:</td><td><input type="text" name="username"/></td></tr>
+        <tr><td>Email:</td><td><input type="text" name="email"/></td></tr>
+        <tr><td>Pwd:</td><td><input type="password" name="password"/></td></tr>
+        <tr><td colspan="2"><input type="submit" value="add new volunteer"/></td></tr>
+    </table>
+</form>
+</body>
+</html>
