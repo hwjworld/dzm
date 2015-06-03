@@ -1,0 +1,50 @@
+{% extends "mobile/m.html" %}
+
+{% load staticfiles %}
+
+{% block title %}记录{% endblock %}
+{% block jsextra %}
+<script src="{% static "js/m_r.js" %}"></script>
+{% endblock %}
+
+
+{% block record_form %}
+        <form id="record_form" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="bmapx"/>
+        <input type="hidden" name="bmapy"/>
+        <input type="hidden" name="map_level1"/>
+        <input type="hidden" name="map_level2"/>
+        <table border="0" width="100%">
+            <tr><td>日期</td><td><input type="text" name="visit_date" id="visit_date" data-role="date" readOnly="true" value=""/></td></tr>
+            <tr><td>胡同(街)</td><td><input type="text" name="street"/></td></tr>
+            <tr><td>门牌</td><td><input type="text" name="num"/></td></tr>
+            <tr><td>受访者姓名</td><td><input type="text" name="householder_name"/></td></tr>
+            <tr><td>受访者性别</td><td>
+            <fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
+        <input type="radio" name="householder_sex" value="1" id="householder_sex_a" checked="checked">
+        <label for="householder_sex_a">先生</label>
+        <input type="radio" name="householder_sex" value="0" id="householder_sex_b">
+        <label for="householder_sex_b">女士</label>
+        <input type="radio" name="householder_sex" value="2" id="householder_sex_c" >
+        <label for="householder_sex_c">未知</label>
+        </fieldset>
+            </td></tr>
+            <tr><td>反应</td><td>
+
+
+            <fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
+        <input type="radio" name="response" value="1" id="response_a">
+        <label for="response_a">继续</label>
+        <input type="radio" name="response" value="0" id="response_b">
+        <label for="response_b">拒绝</label>
+        <input type="radio" name="response" value="2" id="response_c" checked="checked">
+        <label for="response_c">来过</label>
+        </fieldset>
+            </td></tr>
+            <tr><td>义工</td><td><input type="text" name="volunteer" value="{{ user }}"/></td></tr>
+            <tr><td colspan="2"><label>保存前请在地图上点击地址</label></td></tr>
+            <tr><td colspan="2"><input type="button" onclick="saveform_submit()" value="记录"/></td></tr>
+            </table>
+        </form>
+{% endblock %}

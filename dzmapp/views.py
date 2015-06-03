@@ -3,7 +3,7 @@ import csv,codecs,io
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response, render
-from django.template import loader, Context
+from django.template import loader, Context, RequestContext
 from dzmapp.models import *
 from dzmapp.forms import *
 
@@ -81,6 +81,9 @@ def date_search_lookup(request,start_date,end_date):
         else:
             r_visited = r_visited + 1
     rs_sum = {'a':r_accept,'r':r_reject,'v':r_visited}
+    # c = RequestContext(request, { 'records':rs,'rs_sum':rs_sum,'start_date':getTime(start_date),'end_date':getTime(end_date)})
+    # return render('lookup.html',c)
+
     return render_to_response('lookup.html',{'records':rs,'rs_sum':rs_sum,'start_date':getTime(start_date),'end_date':getTime(end_date)})
 
 
