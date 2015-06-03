@@ -8,7 +8,9 @@
 <body>
 {% if user.is_authenticated %}
     <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
-    <p><a href="/l">Enter</a></p>
+    <p><a href="/menu">Enter Menu</a></p>
+    <p><a href="/l">Enter PC</a></p>
+    <p><a href="/m">Enter Mobile</a></p>
 {% else %}
     <p>Welcome, new user. Please log in.</p>
 
