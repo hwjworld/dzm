@@ -51,7 +51,10 @@ def record(request):
                                                       map_y=request.POST['bmapy'])
             p_r = setRecordValue(request=request,p_v=p_v[0],p_m=p_m[0],p_h=p_h[0])
             p_r.save()
-            return HttpResponseRedirect('/l')
+            if(request.POST['is_m'] == "0"):
+                return HttpResponseRedirect('/l')
+            else:
+                return HttpResponseRedirect('/m')
         else:
             return HttpResponseRedirect('/s')
 

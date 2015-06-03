@@ -11,6 +11,7 @@
 {% block record_form %}
         <form id="record_form" method="POST">
         {% csrf_token %}
+        <input type="hidden" name="is_m" value="0"/>
         <input type="hidden" name="bmapx"/>
         <input type="hidden" name="bmapy"/>
         <input type="hidden" name="map_level1"/>
