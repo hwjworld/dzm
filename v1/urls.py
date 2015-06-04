@@ -52,6 +52,8 @@ urlpatterns += patterns('',
 # mobile
 urlpatterns += patterns('',
     url(r'^m$', 'dzmapp.apps.mobile.views.m', name="m"),
+    url(r'^ml$', 'dzmapp.apps.mobile.views.ml', name="m_lookup"),
+    url(r'^ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})$', 'dzmapp.apps.mobile.views.date_search_lookup'),
 )
 # user
 urlpatterns += patterns('',

@@ -8,7 +8,27 @@
 {% endblock %}
 
 
+{% block navbar %}
+        <div data-role="navbar">
+            <ul>
+        <li><a href="/m" class="ui-btn-active" target="_self">记录</a></li>
+        <li><a href="/ml" target="_self">查看</a></li>
+        <li><a href="/accounts/logout" target="_self">退出</a></li>
+        </ul>
+        </div><!-- /navbar -->
+{% endblock %}
 {% block record_form %}
+
+    <div class="map" width="100%">
+        <legend>请先选择地区</legend>
+        <div class="mapheader" data-role="controlgroup"  data-type="horizontal" width="100%">
+            <select id="map_select_level1"></select>
+            <select id="map_select_level2"></select>
+        </div>
+        <div id="mapbody" class="mapbody">
+        </div>
+    </div>
+    <div>
         <form id="record_form" action="/r" method="POST">
         {% csrf_token %}
         <input type="hidden" name="is_m" value="1"/>
@@ -48,4 +68,5 @@
             <tr><td colspan="2"><input type="button" onclick="saveform_submit()" value="记录"/></td></tr>
             </table>
         </form>
+        </div>
 {% endblock %}

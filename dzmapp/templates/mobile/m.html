@@ -30,30 +30,13 @@
 <div data-role="page" id="m_record">
 	<div data-role="header">
         <div data-role="navbar">
-            <ul>
-        <li><a href="#m_record" class="ui-btn-active">记录</a></li>
-        <li><a href="#m_lookup">查看</a></li>
-        <li><a href="/accounts/logout" target="_self">退出</a></li>
-        </ul>
+        {% block navbar %}{% endblock %}
         </div><!-- /navbar -->
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
-
-    <div class="map" width="100%">
-        <legend>请先选择地区</legend>
-        <div class="mapheader" data-role="controlgroup"  data-type="horizontal" width="100%">
-            <select id="map_select_level1"></select>
-            <select id="map_select_level2"></select>
-        </div>
-        <div id="mapbody" class="mapbody">
-        </div>
-    </div>
-
-    <div >
     {% block record_form %}Site{% endblock %}
     </div>
-    </div>
 
 
 	</div><!-- /content -->
@@ -63,28 +46,6 @@
 	</div><!-- /footer -->
 </div><!-- /page -->
 
-<!-- Start of second page -->
-<div data-role="page" id="m_lookup">
-
-	<div data-role="header">
-        <div data-role="navbar">
-            <ul>
-        <li><a href="#m_record" class="ui-btn-active">记录</a></li>
-        <li><a href="#m_lookup">查看</a></li>
-        <li><a href="/accounts/logout" target="_self">退出</a></li>
-        </ul>
-        </div><!-- /navbar -->
-	</div><!-- /header -->
-
-	<div role="main" class="ui-content">
-	未完成，请先使用电脑版<a href="/l" target="_self">查看</a>功能。
-	<a href="#m_record" class="ui-btn-active">返回</a>
-	</div><!-- /content -->
-
-	<div data-role="footer">
-		<h4>end</h4>
-	</div><!-- /footer -->
-</div><!-- /page -->
 <script src="{% static "js/bmap.js" %}"></script>
 </body>
 </html>
