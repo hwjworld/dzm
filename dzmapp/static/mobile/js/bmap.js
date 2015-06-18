@@ -1,12 +1,11 @@
+//this js for baidu map quick
+$(document).ready(function(){
 	var map = new BMap.Map("mapbody");
 	var point = new BMap.Point(116.404, 39.915);
-	map.centerAndZoom(point, 16);
-	map.enableScrollWheelZoom();
+	map.centerAndZoom(point, 15);
+
+	map.enableDragging();
     var geoc = new BMap.Geocoder();
-    /*
-    var geolocationControl = new BMap.GeolocationControl();
-    map.addControl(geolocationControl);
-    */
 
 	var overlays = [];
 	var linelays = [];
@@ -27,6 +26,8 @@
         }
         linelays.length = 0;
 	}
+
+	//点击地图时的画点操作
 	mapclick_fun = function(e){
 	    setPointOnMap(e.point.lng,e.point.lat);
 	    setBmapXY(e.point.lng,e.point.lat);
@@ -46,7 +47,11 @@
 	}
 
 	function moveToPoint(x,y){
-	    map.panTo(new BMap.Point(x,y));
+	    //map.panTo(new BMap.Point(x,y));
+	    map.setCenter(new BMap.Point(x,y));
+	}
+	function moveToPoint(point){
+	    map.setCenter(point);
 	}
 
     //------------添加折线---------------
@@ -54,35 +59,19 @@
     function addPolyline(plPoints){
         ps = plPoints.split(",");
         var points = [];
-        var firstpoint = null;
+        var fp = null;
         for(var j=0;j<ps.length;j++){
             ps[j] = ps[j].replace(/\"/g,"");
             var p1 = ps[j].split("|")[0];
             var p2 = ps[j].split("|")[1];
-            if(j==0){firstpoint = new BMap.Point(p1,p2);}
+            if(j==0){fp = new BMap.Point(p1,p2);}
             points.push(new BMap.Point(p1,p2));
         }
-
         var line = new BMap.Polyline(eval(points),{strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});
         map.addOverlay(line);
         linelays[linelays.length] = line;
-        return firstpoint;
+        return fp;
 	}
-	//---------------------------------
-	/*
-	var geolocation = new BMap.Geolocation();
-	geolocation.getCurrentPosition(function(r){
-		if(this.getStatus() == BMAP_STATUS_SUCCESS){
-			var mk = new BMap.Marker(r.point);
-			map.addOverlay(mk);
-			map.panTo(r.point);
-		}
-		else {
-			alert('你在哪里，我不知道,555~~~');
-		}
-	},{enableHighAccuracy: true})
-	*/
-
 	function setBmapXY(x,y){
         $("#record_form input[name='bmapx']").val(x);
         $("#record_form input[name='bmapy']").val(y);
@@ -143,3 +132,4 @@
 	}
 
     //-----------points mark------------
+});

@@ -7,6 +7,8 @@
 {% block jsextra %}
 <script src="{% static "js/m_l.js" %}"></script>
 <script language="javascript">
+var defaultlevel1 = '{{ level1 }}';
+var defaultlevel2 = '{{ level2 }}';
  var accept_data_info = [
  {% if records|length > 0 %}
   {% for  v in records %}
@@ -34,7 +36,6 @@
   {% endfor %}
 {% endif %}
 ];
-$(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMarkPoints(refuse_data_info);addVisitedMarkPoints(visited_data_info);});
 
 </script>
 {% endblock %}
@@ -54,21 +55,21 @@ $(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMark
 {% block record_form %}
 
     <div class="map" width="100%">
-        <legend>请先选择期间</legend>
+        <legend>请先选择地区</legend>
+        <div class="mapheader" data-role="controlgroup"  data-type="horizontal" width="100%">
+            <select id="map_select_level1"></select>
+            <select id="map_select_level2"></select>
+        </div>
+        <legend>请再选择期间</legend>
         <form id="searchform">
             <input type="hidden" id="start_date" readOnly="true" value="{{ start_date }}" />
             <input type="hidden" id="end_date" readOnly="true" value="{{ end_date }}"/></td>
             <fieldset class="ui-grid-b">
                 <div class="ui-block-a"><input type="button" onclick="thismonth_submit()"  value="本月"></div>
-                <div class="ui-block-b"><input type="button" onclick="lastmonth_submit()"  value="上月"></div>
+            <!--    <div class="ui-block-b"><input type="button" onclick="lastmonth_submit()"  value="上月"></div>-->
                 <div class="ui-block-c"><input type="button" onclick="frommonth_submit()" value="30天"></div>
             </fieldset>
         </form>
-        <legend>请再选择地区</legend>
-        <div class="mapheader" data-role="controlgroup"  data-type="horizontal" width="100%">
-            <select id="map_select_level1"></select>
-            <select id="map_select_level2"></select>
-        </div>
         <div id="mapbody" class="mapbody">
         </div>
     </div>
@@ -95,4 +96,13 @@ $(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMark
         <tr><td>接受</td><td>拒绝</td><td>去过</td></tr>
         <tr><td>{{ rs_sum.a }}次</td><td>{{ rs_sum.r }}次</td><td>{{ rs_sum.v }}户</td></tr>
         </table>
+{% endblock %}
+
+{% block lastjs %}
+<script language="javascript">
+$(document).ready(function(){
+    //addAcceptMarkPoints(accept_data_info);addRefuseMarkPoints(refuse_data_info);addVisitedMarkPoints(visited_data_info);
+    change2defaultmap1();
+});
+</script>
 {% endblock %}

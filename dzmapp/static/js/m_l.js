@@ -11,7 +11,9 @@ function seachform_submit(){
 function thismonth_submit(){
     sd = $("#start_date").val(getMonthStartDate()).val().replace(/-/gm,'');
     ed = $("#end_date").val(getMonthEndDate()).val().replace(/-/gm,'');
-    window.location.href = "/ml/" + sd + "-" + ed;
+    level1 = $("#map_select_level1 option:selected").text();
+    level2 = $("#map_select_level2 option:selected").text();
+    window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
 }
 function lastmonth_submit(){
     sd = $("#start_date").val(getLastMonthStartDate()).val().replace(/-/gm,'');
