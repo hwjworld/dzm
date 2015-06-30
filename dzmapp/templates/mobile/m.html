@@ -3,10 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <link href="{% static 'vendor/jquery-mobile/jquery.mobile-1.4.5.min.css' %}" rel="stylesheet" />
-    <link rel="stylesheet" href="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.css">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
     <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/jquery-mobile/jquery.mobile-1.4.5.min.js' %}"></script>
+    <link rel="stylesheet" href="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.css">
     <script src="http://cdn.rawgit.com/jquery/jquery-ui/1.10.4/ui/jquery.ui.datepicker.js"></script>
     <script id="mobile-datepicker" src="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.js"></script>
     {% block jsextra %}{% endblock %}
@@ -19,12 +19,12 @@
 	<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
     -->
     <style type="text/css">
-	 #mapbody {width: 100%;height: 300px;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	 #mapbody {width: 80%;height: 400px;overflow: hidden;margin:0;font-family:"微软雅黑";float:left;}
 	</style>
     <script src="{% static "js/datetime.js" %}"></script>
     <title></title>
 </head>
-<body>
+<body onload="changemap();changemap1();">
 <!-- Start of first page -->
 <div data-role="page" id="m_record">
 	<div data-role="header">
@@ -45,7 +45,7 @@
 	</div><!-- /footer -->
 </div><!-- /page -->
 
-<script src="{% static 'js/base_generic.js' %}"></script>
+<script src="{% static 'mobile/js/base_generic.js' %}"></script>
 <script src="{% static "mobile/js/bmap.js" %}"></script>
 {% block lastjs %}
 {% endblock %}

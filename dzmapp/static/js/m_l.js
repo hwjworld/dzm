@@ -18,14 +18,18 @@ function thismonth_submit(){
 function lastmonth_submit(){
     sd = $("#start_date").val(getLastMonthStartDate()).val().replace(/-/gm,'');
     ed = $("#end_date").val(getLastMonthEndDate()).val().replace(/-/gm,'');
-    window.location.href = "/ml/" + sd + "-" + ed;
+    level1 = $("#map_select_level1 option:selected").text();
+    level2 = $("#map_select_level2 option:selected").text();
+    window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
 }
 function frommonth_submit(){
     recent30daystart = new Date();
     recent30daystart.setDate(-(30-recent30daystart.getDate()));
     sd = $("#start_date").val(formatDate(recent30daystart)).val().replace(/-/gm,'');
     ed = $("#end_date").val(formatDate(now)).val().replace(/-/gm,'');
-    window.location.href = "/ml/" + sd + "-" + ed;
+    level1 = $("#map_select_level1 option:selected").text();
+    level2 = $("#map_select_level2 option:selected").text();
+    window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
 }
 function csvexport_submit(){
     sd = $("#start_date").val().replace(/-/gm,'');

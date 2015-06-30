@@ -1,14 +1,5 @@
 //this js for baidu map quick
-$(document).ready(function(){
-	var map = new BMap.Map("mapbody");
-	var point = new BMap.Point(116.404, 39.915);
-	map.centerAndZoom(point, 15);
 
-	map.enableDragging();
-    var geoc = new BMap.Geocoder();
-
-	var overlays = [];
-	var linelays = [];
 	function clearAll() {
 		remove_overlays();
         remove_linelays();
@@ -27,17 +18,7 @@ $(document).ready(function(){
         linelays.length = 0;
 	}
 
-	//点击地图时的画点操作
-	mapclick_fun = function(e){
-	    setPointOnMap(e.point.lng,e.point.lat);
-	    setBmapXY(e.point.lng,e.point.lat);
-        var pt = e.point;
-        geoc.getLocation(pt, function(rs){
-            var addComp = rs.addressComponents;
-            $("#record_form input[name='street']").val(addComp.district + ", " + addComp.street+ ","+addComp.streetNumber);
-        });
-	};
-	map.addEventListener("click",mapclick_fun);
+
 	function setPointOnMap(x,y){
 	    remove_overlays();
         var marker = new BMap.Marker(new BMap.Point(x,y));
@@ -132,4 +113,28 @@ $(document).ready(function(){
 	}
 
     //-----------points mark------------
-});
+
+
+
+	var map = new BMap.Map("mapbody");
+	var point = new BMap.Point(116.404, 39.915);
+	map.centerAndZoom(point, 15);
+
+	map.enableDragging();
+    var geoc = new BMap.Geocoder();
+
+	var overlays = [];
+	var linelays = [];
+
+
+	//点击地图时的画点操作
+	mapclick_fun = function(e){
+	    setPointOnMap(e.point.lng,e.point.lat);
+	    setBmapXY(e.point.lng,e.point.lat);
+        var pt = e.point;
+        geoc.getLocation(pt, function(rs){
+            var addComp = rs.addressComponents;
+            $("#record_form input[name='street']").val(addComp.district + ", " + addComp.street+ ","+addComp.streetNumber);
+        });
+	};
+	map.addEventListener("click",mapclick_fun);

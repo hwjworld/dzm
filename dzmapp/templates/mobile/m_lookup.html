@@ -71,6 +71,7 @@ var defaultlevel2 = '{{ level2 }}';
             </fieldset>
         </form>
         <div id="mapbody" class="mapbody">
+
         </div>
     </div>
         <table border="1" width="100%">
@@ -102,7 +103,14 @@ var defaultlevel2 = '{{ level2 }}';
 <script language="javascript">
 $(document).ready(function(){
     //addAcceptMarkPoints(accept_data_info);addRefuseMarkPoints(refuse_data_info);addVisitedMarkPoints(visited_data_info);
-    change2defaultmap1();
+
+    console.log("start change map1");
+    //changemap1();
+    console.log("end change map1");
+
+    console.log("start change map2");
+    //changemap2();
+    console.log("end change map2");
 });
 </script>
 {% endblock %}
