@@ -1,15 +1,5 @@
-	var map = new BMap.Map("mapbody");
-	var point = new BMap.Point(116.404, 39.915);
-	map.centerAndZoom(point, 16);
-	map.enableScrollWheelZoom();
-    var geoc = new BMap.Geocoder();
-    /*
-    var geolocationControl = new BMap.GeolocationControl();
-    map.addControl(geolocationControl);
-    */
+//this js for baidu map quick
 
-	var overlays = [];
-	var linelays = [];
 	function clearAll() {
 		remove_overlays();
         remove_linelays();
@@ -27,16 +17,8 @@
         }
         linelays.length = 0;
 	}
-	mapclick_fun = function(e){
-	    setPointOnMap(e.point.lng,e.point.lat);
-	    setBmapXY(e.point.lng,e.point.lat);
-        var pt = e.point;
-        geoc.getLocation(pt, function(rs){
-            var addComp = rs.addressComponents;
-            $("#record_form input[name='street']").val(addComp.district + ", " + addComp.street+ ","+addComp.streetNumber);
-        });
-	};
-	map.addEventListener("click",mapclick_fun);
+
+
 	function setPointOnMap(x,y){
 	    remove_overlays();
         var marker = new BMap.Marker(new BMap.Point(x,y));
@@ -45,8 +27,12 @@
         overlays[0] = marker;
 	}
 
-	function moveToPoint(x,y){
-	    map.panTo(new BMap.Point(x,y));
+	function moveToPointWithXY(x,y){
+	    //map.panTo(new BMap.Point(x,y));
+	    moveToPoint(new BMap.Point(x,y));
+	}
+	function moveToPoint(point){
+	    map.setCenter(point);
 	}
 
     //------------添加折线---------------
@@ -54,35 +40,19 @@
     function addPolyline(plPoints){
         ps = plPoints.split(",");
         var points = [];
-        var firstpoint = null;
+        var fp = null;
         for(var j=0;j<ps.length;j++){
             ps[j] = ps[j].replace(/\"/g,"");
             var p1 = ps[j].split("|")[0];
             var p2 = ps[j].split("|")[1];
-            if(j==0){firstpoint = new BMap.Point(p1,p2);}
+            if(j==0){fp = new BMap.Point(p1,p2);}
             points.push(new BMap.Point(p1,p2));
         }
-
         var line = new BMap.Polyline(eval(points),{strokeColor:"red", strokeWeight:2, strokeOpacity:0.5});
         map.addOverlay(line);
         linelays[linelays.length] = line;
-        return firstpoint;
+        return fp;
 	}
-	//---------------------------------
-	/*
-	var geolocation = new BMap.Geolocation();
-	geolocation.getCurrentPosition(function(r){
-		if(this.getStatus() == BMAP_STATUS_SUCCESS){
-			var mk = new BMap.Marker(r.point);
-			map.addOverlay(mk);
-			map.panTo(r.point);
-		}
-		else {
-			alert('你在哪里，我不知道,555~~~');
-		}
-	},{enableHighAccuracy: true})
-	*/
-
 	function setBmapXY(x,y){
         $("#record_form input[name='bmapx']").val(x);
         $("#record_form input[name='bmapy']").val(y);
@@ -95,6 +65,12 @@
                 enableMessage:false//设置允许信息窗发送短息
                };
     //-----------points mark------------
+
+	function addAllMarkPoints(data_info){
+	    addAcceptMarkPoints(accept_data_info);
+	    addRefuseMarkPoints(refuse_data_info);
+	    addVisitedMarkPoints(visited_data_info);
+	}
 
 	function addAcceptMarkPoints(data_info){
 	    addMarkPoints(data_info,1);
@@ -143,3 +119,28 @@
 	}
 
     //-----------points mark------------
+
+
+
+	var map = new BMap.Map("mapbody");
+	var point = new BMap.Point(116.404, 39.915);
+	map.centerAndZoom(point, 15);
+
+	map.enableDragging();
+    var geoc = new BMap.Geocoder();
+
+	var overlays = [];
+	var linelays = [];
+
+
+	//点击地图时的画点操作
+	mapclick_fun = function(e){
+	    setPointOnMap(e.point.lng,e.point.lat);
+	    setBmapXY(e.point.lng,e.point.lat);
+        var pt = e.point;
+        geoc.getLocation(pt, function(rs){
+            var addComp = rs.addressComponents;
+            $("#record_form input[name='street']").val(addComp.district + ", " + addComp.street+ ","+addComp.streetNumber);
+        });
+	};
+	map.addEventListener("click",mapclick_fun);

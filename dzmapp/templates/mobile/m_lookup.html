@@ -7,6 +7,8 @@
 {% block jsextra %}
 <script src="{% static "js/m_l.js" %}"></script>
 <script language="javascript">
+var defaultlevel1 = '{{ level1 }}';
+var defaultlevel2 = '{{ level2 }}';
  var accept_data_info = [
  {% if records|length > 0 %}
   {% for  v in records %}
@@ -34,12 +36,13 @@
   {% endfor %}
 {% endif %}
 ];
-$(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMarkPoints(refuse_data_info);addVisitedMarkPoints(visited_data_info);});
-
 </script>
 {% endblock %}
 
 
+{% block bodyparam %}
+ onload="changemap();changemap1();changemap2();addAllMarkPoints();"
+{% endblock %}
 
 {% block navbar %}
         <div data-role="navbar">
@@ -54,28 +57,31 @@ $(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMark
 {% block record_form %}
 
     <div class="map" width="100%">
-        <legend>请先选择期间</legend>
+        <legend>请先选择地区</legend>
+        <div class="mapheader" data-role="controlgroup"  data-type="horizontal" width="100%">
+            <select id="map_select_level1"></select>
+            <select id="map_select_level2"></select>
+        </div>
+        <legend>请再选择期间</legend>
         <form id="searchform">
             <input type="hidden" id="start_date" readOnly="true" value="{{ start_date }}" />
             <input type="hidden" id="end_date" readOnly="true" value="{{ end_date }}"/></td>
             <fieldset class="ui-grid-b">
                 <div class="ui-block-a"><input type="button" onclick="thismonth_submit()"  value="本月"></div>
-                <div class="ui-block-b"><input type="button" onclick="lastmonth_submit()"  value="上月"></div>
+            <!--    <div class="ui-block-b"><input type="button" onclick="lastmonth_submit()"  value="上月"></div>-->
                 <div class="ui-block-c"><input type="button" onclick="frommonth_submit()" value="30天"></div>
             </fieldset>
         </form>
-        <legend>请再选择地区</legend>
-        <div class="mapheader" data-role="controlgroup"  data-type="horizontal" width="100%">
-            <select id="map_select_level1"></select>
-            <select id="map_select_level2"></select>
-        </div>
         <div id="mapbody" class="mapbody">
+
         </div>
     </div>
         <table border="1" width="100%">
             <tr><td>日期</td><td>姓名</td><td>性别</td><td>胡同(街)</td><td>门牌</td><td>反应</td><td>义工</td></tr>
 {% if records|length > 0 %}
+            <tr><td colspan="7">以下是续访</td></tr>
   {% for  v in records %}
+    {% ifequal v.householder.response "1" %}
     <tr name="recordtr" id="record-{{ v.id }}" mapx="{{ v.householder.map_x }}" mapy="{{ v.householder.map_y }}">
         <td>{{v.visit_date|date:"Y-m-d D"}}</td>
         <td>{{v.householder.name}}</td>
@@ -85,6 +91,35 @@ $(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMark
         <td>{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}{% ifequal v.householder.response "2" %}去过{% endifequal %}</td>
         <td>{{v.volunteer}}</td>
     </tr>
+    {% endifequal %}
+  {% endfor %}
+            <tr><td colspan="7">以下是拒绝</td></tr>
+  {% for  v in records %}
+    {% ifequal v.householder.response "0" %}
+    <tr name="recordtr" id="record-{{ v.id }}" mapx="{{ v.householder.map_x }}" mapy="{{ v.householder.map_y }}">
+        <td>{{v.visit_date|date:"Y-m-d D"}}</td>
+        <td>{{v.householder.name}}</td>
+        <td>{% ifequal v.householder.sex "1" %}男{% endifequal %}{% ifequal v.householder.sex "0" %}女{% endifequal %}{% ifequal v.householder.sex "2" %}其他{% endifequal %}</td>
+        <td>{{v.householder.street}}</td>
+        <td>{{v.householder.num}}</td>
+        <td>{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}{% ifequal v.householder.response "2" %}去过{% endifequal %}</td>
+        <td>{{v.volunteer}}</td>
+    </tr>
+    {% endifequal %}
+  {% endfor %}
+            <tr><td colspan="7">以下是去过的</td></tr>
+  {% for  v in records %}
+    {% ifequal v.householder.response "2" %}
+    <tr name="recordtr" id="record-{{ v.id }}" mapx="{{ v.householder.map_x }}" mapy="{{ v.householder.map_y }}">
+        <td>{{v.visit_date|date:"Y-m-d D"}}</td>
+        <td>{{v.householder.name}}</td>
+        <td>{% ifequal v.householder.sex "1" %}男{% endifequal %}{% ifequal v.householder.sex "0" %}女{% endifequal %}{% ifequal v.householder.sex "2" %}其他{% endifequal %}</td>
+        <td>{{v.householder.street}}</td>
+        <td>{{v.householder.num}}</td>
+        <td>{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}{% ifequal v.householder.response "2" %}去过{% endifequal %}</td>
+        <td>{{v.volunteer}}</td>
+    </tr>
+    {% endifequal %}
   {% endfor %}
 {% else %}
 <tr><td colspan="7">要多多做工作</tr>
@@ -95,4 +130,10 @@ $(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMark
         <tr><td>接受</td><td>拒绝</td><td>去过</td></tr>
         <tr><td>{{ rs_sum.a }}次</td><td>{{ rs_sum.r }}次</td><td>{{ rs_sum.v }}户</td></tr>
         </table>
+{% endblock %}
+
+{% block lastjs %}
+window.onload=function(){
+changemap();changemap1();changemap2();addAllMarkPoints();
+}
 {% endblock %}

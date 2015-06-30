@@ -5,8 +5,23 @@
 {% block title %}记录{% endblock %}
 {% block jsextra %}
 <script src="{% static "js/m_r.js" %}"></script>
+<script language="javascript">
+var defaultlevel1 = '{{ level1 }}';
+var defaultlevel2 = '{{ level2 }}';
+var accept_data_info = [];
+var refuse_data_info = [];
+var visited_data_info = [];
+{% ifequal success "1" %}
+alert("已添加您的记录，谢谢努力工作 ^_^ ");
+{% endifequal %}
+
+</script>
 {% endblock %}
 
+
+{% block bodyparam %}
+ onload="changemap();changemap1();changemap2();"
+{% endblock %}
 
 {% block navbar %}
         <div data-role="navbar">
@@ -63,10 +78,15 @@
         <label for="response_c">来过</label>
         </fieldset>
             </td></tr>
-            <tr><td>义工</td><td><input type="text" name="volunteer" value="{{ user }}"/></td></tr>
+            <tr><td>义工</td><td><input type="text" name="volunteer" value="{{ volunteer_name }}"/></td></tr>
             <tr><td colspan="2"><label>保存前请在地图上点击地址</label></td></tr>
             <tr><td colspan="2"><input type="button" onclick="saveform_submit()" value="记录"/></td></tr>
             </table>
         </form>
         </div>
+{% endblock %}
+
+{% block lastjs %}
+<script language="javascript">
+</script>
 {% endblock %}
