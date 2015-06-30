@@ -27,9 +27,9 @@
         overlays[0] = marker;
 	}
 
-	function moveToPoint(x,y){
+	function moveToPointWithXY(x,y){
 	    //map.panTo(new BMap.Point(x,y));
-	    map.setCenter(new BMap.Point(x,y));
+	    moveToPoint(new BMap.Point(x,y));
 	}
 	function moveToPoint(point){
 	    map.setCenter(point);
@@ -65,6 +65,12 @@
                 enableMessage:false//设置允许信息窗发送短息
                };
     //-----------points mark------------
+
+	function addAllMarkPoints(data_info){
+	    addAcceptMarkPoints(accept_data_info);
+	    addRefuseMarkPoints(refuse_data_info);
+	    addVisitedMarkPoints(visited_data_info);
+	}
 
 	function addAcceptMarkPoints(data_info){
 	    addMarkPoints(data_info,1);

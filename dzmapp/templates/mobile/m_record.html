@@ -5,7 +5,19 @@
 {% block title %}记录{% endblock %}
 {% block jsextra %}
 <script src="{% static "js/m_r.js" %}"></script>
+<script language="javascript">
+var defaultlevel1 = '{{ level1 }}';
+var defaultlevel2 = '{{ level2 }}';
+var accept_data_info = [];
+var refuse_data_info = [];
+var visited_data_info = [];
+
+window.onload=function(){
+changemap();changemap1();changemap2();
+};
+</script>
 {% endblock %}
+
 
 
 {% block navbar %}
@@ -69,4 +81,9 @@
             </table>
         </form>
         </div>
+{% endblock %}
+
+{% block lastjs %}
+<script language="javascript">
+</script>
 {% endblock %}

@@ -13,14 +13,16 @@ function thismonth_submit(){
     ed = $("#end_date").val(getMonthEndDate()).val().replace(/-/gm,'');
     level1 = $("#map_select_level1 option:selected").text();
     level2 = $("#map_select_level2 option:selected").text();
-    window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
+    window.open("/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2, "_self");
+    //parent.window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
 }
 function lastmonth_submit(){
     sd = $("#start_date").val(getLastMonthStartDate()).val().replace(/-/gm,'');
     ed = $("#end_date").val(getLastMonthEndDate()).val().replace(/-/gm,'');
     level1 = $("#map_select_level1 option:selected").text();
     level2 = $("#map_select_level2 option:selected").text();
-    window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
+    window.open("/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2, "_self");
+    //window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
 }
 function frommonth_submit(){
     recent30daystart = new Date();
@@ -29,7 +31,8 @@ function frommonth_submit(){
     ed = $("#end_date").val(formatDate(now)).val().replace(/-/gm,'');
     level1 = $("#map_select_level1 option:selected").text();
     level2 = $("#map_select_level2 option:selected").text();
-    window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
+    window.open("/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2, "_self");
+    //window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
 }
 function csvexport_submit(){
     sd = $("#start_date").val().replace(/-/gm,'');
@@ -42,6 +45,6 @@ $(document).ready(function(){
     $( "#start_date" ).datepicker({ dateFormat: "yy-mm-dd" });
     $( "#end_date" ).datepicker({ dateFormat: "yy-mm-dd" });
     $("[name='recordtr']").mouseover(function(){$(this).css("background","#FFD2D2");}).mouseout(function(){$(this).css("background","");}).click(function(){
-        moveToPoint($(this).attr("mapx"),$(this).attr("mapy"))
+        moveToPointWithXY($(this).attr("mapx"),$(this).attr("mapy"))
     });
 });

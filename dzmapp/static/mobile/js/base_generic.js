@@ -1,25 +1,25 @@
+
+    //init level1
+    //console.log("get map1");
+function changemap(){
      $.ajaxSetup({
         async : false
     });
-    //init level1
-    console.log("get map1");
-function changemap(){
-
     $.get('/map/level1/', {},function (data,status){
         $.each(eval(data), function(key, val) {
             $("#map_select_level1").append("<option value='"+val+"'>"+val+"</option>");
         });
-      console.log("get map1 finish");
+      //console.log("get map1 finish");
       }
     );
-    console.log("bind map1 change");
+    //console.log("bind map1 change");
     $("#map_select_level1").change(changemap1);
-    console.log("bind map2 change");
+    //console.log("bind map2 change");
     $("#map_select_level2").change(changemap2);
 
-    console.log("start change 2 default");
+    //console.log("start change 2 default");
     //change2defaultmap1();
-    console.log("end change 2 default");
+    //console.log("end change 2 default");
 
 }
 
@@ -29,14 +29,14 @@ function changemap1(){
             $("#map_select_level1").val(defaultlevel1).selectmenu("refresh");
             defaultlevel1 = "";
         }
-        console.log("start get map1 levels");
+        //console.log("start get map1 levels");
         $.get('/map/level1/'+$("#map_select_level1").val()+"/level2/", {},function (data1,status){
             $("#map_select_level2").empty();
             $.each(eval(data1), function(key, val) {
                 $("#map_select_level2").append("<option value='"+val[1]+"'>"+val[0]+"</option>");
             });
         });
-        console.log("finish get map1 levels");
+        //console.log("finish get map1 levels");
         changemap2();
 }
 
@@ -50,10 +50,10 @@ function changemap2(){
 
     if(defaultlevel2 != ""){
         $("#map_select_level2").children("option").each(function(){
-            console.log("===");
+            //console.log("===");
             if($(this).text()==defaultlevel2){
-                console.log("text -- "+$(this).text());
-                console.log("defaultlevel2 -- "+defaultlevel2);
+                //console.log("text -- "+$(this).text());
+                //console.log("defaultlevel2 -- "+defaultlevel2);
                 $("#map_select_level2").val($(this).val());
             }
         });
@@ -61,7 +61,7 @@ function changemap2(){
         defaultlevel2 = "";
     }
 
-    console.log("move bmap to map2");
+    //console.log("move bmap to map2");
     //暂停一秒，等map加载
     //my = setInterval(function(){},1000);
     //clearInterval(my);
@@ -69,5 +69,5 @@ function changemap2(){
     remove_linelays();
     var tmp = addPolyline($("#map_select_level2").val());
     moveToPoint(tmp);
-    console.log("end move bmap to map2");
+    //console.log("end move bmap to map2");
 }

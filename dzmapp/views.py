@@ -54,7 +54,7 @@ def record(request):
             if(request.POST['is_m'] == "0"):
                 return HttpResponseRedirect('/l')
             else:
-                return HttpResponseRedirect('/m')
+                return HttpResponseRedirect('/m/'+map_level1+"/"+map_level2)
         else:
             return HttpResponseRedirect('/s')
 

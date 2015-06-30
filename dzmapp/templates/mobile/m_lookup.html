@@ -37,6 +37,10 @@ var defaultlevel2 = '{{ level2 }}';
 {% endif %}
 ];
 
+
+window.onload=function(){
+changemap();changemap1();changemap2();addAllMarkPoints();
+};
 </script>
 {% endblock %}
 
@@ -77,7 +81,9 @@ var defaultlevel2 = '{{ level2 }}';
         <table border="1" width="100%">
             <tr><td>日期</td><td>姓名</td><td>性别</td><td>胡同(街)</td><td>门牌</td><td>反应</td><td>义工</td></tr>
 {% if records|length > 0 %}
+            <tr><td colspan="7">以下是续访</td></tr>
   {% for  v in records %}
+    {% ifequal v.householder.response "1" %}
     <tr name="recordtr" id="record-{{ v.id }}" mapx="{{ v.householder.map_x }}" mapy="{{ v.householder.map_y }}">
         <td>{{v.visit_date|date:"Y-m-d D"}}</td>
         <td>{{v.householder.name}}</td>
@@ -87,6 +93,35 @@ var defaultlevel2 = '{{ level2 }}';
         <td>{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}{% ifequal v.householder.response "2" %}去过{% endifequal %}</td>
         <td>{{v.volunteer}}</td>
     </tr>
+    {% endifequal %}
+  {% endfor %}
+            <tr><td colspan="7">以下是拒绝</td></tr>
+  {% for  v in records %}
+    {% ifequal v.householder.response "0" %}
+    <tr name="recordtr" id="record-{{ v.id }}" mapx="{{ v.householder.map_x }}" mapy="{{ v.householder.map_y }}">
+        <td>{{v.visit_date|date:"Y-m-d D"}}</td>
+        <td>{{v.householder.name}}</td>
+        <td>{% ifequal v.householder.sex "1" %}男{% endifequal %}{% ifequal v.householder.sex "0" %}女{% endifequal %}{% ifequal v.householder.sex "2" %}其他{% endifequal %}</td>
+        <td>{{v.householder.street}}</td>
+        <td>{{v.householder.num}}</td>
+        <td>{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}{% ifequal v.householder.response "2" %}去过{% endifequal %}</td>
+        <td>{{v.volunteer}}</td>
+    </tr>
+    {% endifequal %}
+  {% endfor %}
+            <tr><td colspan="7">以下是去过的</td></tr>
+  {% for  v in records %}
+    {% ifequal v.householder.response "2" %}
+    <tr name="recordtr" id="record-{{ v.id }}" mapx="{{ v.householder.map_x }}" mapy="{{ v.householder.map_y }}">
+        <td>{{v.visit_date|date:"Y-m-d D"}}</td>
+        <td>{{v.householder.name}}</td>
+        <td>{% ifequal v.householder.sex "1" %}男{% endifequal %}{% ifequal v.householder.sex "0" %}女{% endifequal %}{% ifequal v.householder.sex "2" %}其他{% endifequal %}</td>
+        <td>{{v.householder.street}}</td>
+        <td>{{v.householder.num}}</td>
+        <td>{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}{% ifequal v.householder.response "2" %}去过{% endifequal %}</td>
+        <td>{{v.volunteer}}</td>
+    </tr>
+    {% endifequal %}
   {% endfor %}
 {% else %}
 <tr><td colspan="7">要多多做工作</tr>
@@ -100,17 +135,7 @@ var defaultlevel2 = '{{ level2 }}';
 {% endblock %}
 
 {% block lastjs %}
-<script language="javascript">
-$(document).ready(function(){
-    //addAcceptMarkPoints(accept_data_info);addRefuseMarkPoints(refuse_data_info);addVisitedMarkPoints(visited_data_info);
-
-    console.log("start change map1");
-    //changemap1();
-    console.log("end change map1");
-
-    console.log("start change map2");
-    //changemap2();
-    console.log("end change map2");
-});
-</script>
+window.onload=function(){
+changemap();changemap1();changemap2();addAllMarkPoints();
+}
 {% endblock %}

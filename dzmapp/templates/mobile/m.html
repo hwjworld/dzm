@@ -3,14 +3,19 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <META HTTP-EQUIV="expires" CONTENT="0">
     <META HTTP-EQUIV="pragma" CONTENT="no-cache">
-    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <link href="{% static 'vendor/jquery-mobile/jquery.mobile-1.4.5.min.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" href="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.css">
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-mobile/jquery.mobile-1.4.5.min.js' %}"></script>
     <script src="http://cdn.rawgit.com/jquery/jquery-ui/1.10.4/ui/jquery.ui.datepicker.js"></script>
     <script id="mobile-datepicker" src="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.js"></script>
     {% block jsextra %}{% endblock %}
 
+	<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=09d48141d5414f05ba70c871b77934dd"></script>-->
 	<script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=09d48141d5414f05ba70c871b77934dd&v=1.0"></script>
     <!--
 	<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
@@ -24,7 +29,7 @@
     <script src="{% static "js/datetime.js" %}"></script>
     <title></title>
 </head>
-<body onload="changemap();changemap1();">
+<body onload="">
 <!-- Start of first page -->
 <div data-role="page" id="m_record">
 	<div data-role="header">
