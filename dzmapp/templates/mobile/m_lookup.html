@@ -36,15 +36,13 @@ var defaultlevel2 = '{{ level2 }}';
   {% endfor %}
 {% endif %}
 ];
-
-
-window.onload=function(){
-changemap();changemap1();changemap2();addAllMarkPoints();
-};
 </script>
 {% endblock %}
 
 
+{% block bodyparam %}
+ onload="changemap();changemap1();changemap2();addAllMarkPoints();"
+{% endblock %}
 
 {% block navbar %}
         <div data-role="navbar">

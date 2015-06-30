@@ -63,11 +63,10 @@ function changemap2(){
 
     //console.log("move bmap to map2");
     //暂停一秒，等map加载
-    //my = setInterval(function(){},1000);
-    //clearInterval(my);
-    setTimeout(function(){},2000);
-    remove_linelays();
-    var tmp = addPolyline($("#map_select_level2").val());
-    moveToPoint(tmp);
-    //console.log("end move bmap to map2");
+    setTimeout(function(){
+        remove_linelays();
+        var tmp = addPolyline($("#map_select_level2").val());
+        moveToPoint(tmp);
+        //console.log("end move bmap to map2");
+    },1000);
 }

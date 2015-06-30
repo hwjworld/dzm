@@ -52,7 +52,7 @@ urlpatterns += patterns('',
 # mobile
 urlpatterns += patterns('',
     url(r'^m$', 'dzmapp.apps.mobile.views.m', name="m"),
-    url(r'^m/(?P<level1>\w{1})/(?P<level2>\w{1})$', 'dzmapp.apps.mobile.views.m1', name="m1"),
+    url(r'^m/(?P<level1>\w{1})/(?P<level2>\w{1})', 'dzmapp.apps.mobile.views.m1', name="m1"),
     url(r'^ml$', 'dzmapp.apps.mobile.views.ml', name="m_lookup"),
     url(r'^ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})$', 'dzmapp.apps.mobile.views.date_search_lookup'),
     url(r'^ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})/(?P<level1>\w{1})/(?P<level2>\w{1})$', 'dzmapp.apps.mobile.views.date_search_with_area_lookup'),
