@@ -37,6 +37,31 @@ var defaultlevel2 = '{{ level2 }}';
 {% endif %}
 ];
 </script>
+ <style>
+
+.icon_a {
+  background:url(http://api.map.baidu.com/img/markers.png);
+  background-repeat:no-repeat;
+  background-position:0px 0px;
+  height:25px;
+  width: 23px;
+}
+.icon_v {
+  background:url(http://api.map.baidu.com/img/markers.png);
+  background-repeat:no-repeat;
+  background-position:0px -250px;
+  height:25px;
+  width: 23px;
+}
+.icon_r {
+  background:url(http://api.map.baidu.com/img/markers.png);
+  background-repeat:no-repeat;
+  background-position:0px -275px;
+  height:25px;
+  width: 23px;
+}
+</style>
+
 {% endblock %}
 
 
@@ -72,8 +97,9 @@ var defaultlevel2 = '{{ level2 }}';
                 <div class="ui-block-c"><input type="button" onclick="frommonth_submit()" value="30天"></div>
             </fieldset>
         </form>
-        <div id="mapbody" class="mapbody">
-
+        <div id="mapbody" class="mapbody"></div>
+        <div id="iconindicator" class="iconindicator">
+            <div class="icon_a"></div>续访<div class="icon_r"></div>拒绝<div class="icon_v"></div>去过
         </div>
     </div>
         <table border="1" width="100%">
