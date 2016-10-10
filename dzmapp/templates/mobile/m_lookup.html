@@ -72,8 +72,8 @@ var defaultlevel2 = '{{ level2 }}';
 {% block navbar %}
         <div data-role="navbar">
             <ul>
-        <li><a href="/m" target="_self">记录</a></li>
-        <li><a href="/ml" class="ui-btn-active" target="_self">查看</a></li>
+        <li><a onclick="m_record_url();" target="_self">记录</a></li>
+        <li><a class="ui-btn-active" onclick="ml_record_url();" target="_self">查看</a></li>
         <li><a href="/accounts/logout" target="_self">退出</a></li>
         </ul>
         </div><!-- /navbar -->

@@ -26,8 +26,8 @@ alert("已添加您的记录，谢谢努力工作 ^_^ ");
 {% block navbar %}
         <div data-role="navbar">
             <ul>
-        <li><a href="/m" class="ui-btn-active" target="_self">记录</a></li>
-        <li><a href="/ml" target="_self">查看</a></li>
+        <li><a class="ui-btn-active" onclick="m_record_url();" target="_self">记录</a></li>
+        <li><a target="_self" onclick="ml_record_url();">查看</a></li>
         <li><a href="/accounts/logout" target="_self">退出</a></li>
         </ul>
         </div><!-- /navbar -->

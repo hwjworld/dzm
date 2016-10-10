@@ -13,7 +13,9 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect,ensure_csrf_c
 def m(request):
     #html = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'/></head><body>开发中,返回<a href='/l'>主版本</a>.</body></html>"
     #return HttpResponse(html)
-    return render_to_response("mobile/m_record.html",{'level1':'A', 'level2':0})
+    l1 = request.REQUEST.get('l1','A')
+    l2 = request.REQUEST.get('l2','0')
+    return render_to_response("mobile/m_record.html",{'level1':l1, 'level2':l2})
 
 def m1(request,level1,level2):
     volunteer_name=request.REQUEST.get('v','')
@@ -24,7 +26,9 @@ def m1(request,level1,level2):
 
 @login_required
 def ml(request):
-    return render_to_response("mobile/m_lookup.html")
+    l1 = request.REQUEST.get('l1','A')
+    l2 = request.REQUEST.get('l2','0')
+    return render_to_response("mobile/m_lookup.html",{'level1':l1, 'level2':l2})
 
 def getTime(dtstr):
     time = datetime.datetime.strptime(dtstr, '%Y%m%d')

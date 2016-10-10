@@ -129,6 +129,19 @@
 	map.enableDragging();
     var geoc = new BMap.Geocoder();
 
+    var navigationControl = new BMap.NavigationControl({
+        // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+      });
+      map.addControl(navigationControl);
+
+  var geolocationControl = new BMap.GeolocationControl();
+  map.addControl(geolocationControl);
+
 	var overlays = [];
 	var linelays = [];
 

@@ -70,3 +70,18 @@ function changemap2(){
         //console.log("end move bmap to map2");
     },1000);
 }
+
+
+function get_current_territory_l1(){
+    return $("#map_select_level1").val();
+}
+function get_current_territory_l2(){
+    return $("#map_select_level2").find("option:selected").text();
+}
+
+function m_record_url(){
+    window.location.href="/m?l1="+get_current_territory_l1()+"&l2="+get_current_territory_l2();
+}
+function ml_record_url(){
+    window.location.href="/ml?l1="+get_current_territory_l1()+"&l2="+get_current_territory_l2();
+}
