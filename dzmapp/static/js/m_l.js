@@ -34,6 +34,16 @@ function frommonth_submit(){
     window.open("/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2, "_self");
     //window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
 }
+function nintydays_submit(){
+    recent90daystart = new Date();
+    recent90daystart.setDate(-(90-recent90daystart.getDate()));
+    sd = $("#start_date").val(formatDate(recent90daystart)).val().replace(/-/gm,'');
+    ed = $("#end_date").val(formatDate(now)).val().replace(/-/gm,'');
+    level1 = $("#map_select_level1 option:selected").text();
+    level2 = $("#map_select_level2 option:selected").text();
+    window.open("/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2, "_self");
+    //window.location.href = "/ml/" + sd + "-" + ed + "/" + level1 + "/" + level2;
+}
 function csvexport_submit(){
     sd = $("#start_date").val().replace(/-/gm,'');
     ed = $("#end_date").val().replace(/-/gm,'');

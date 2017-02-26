@@ -25,6 +25,13 @@ function frommonth_submit(){
     ed = $("#end_date").val(formatDate(now)).val().replace(/-/gm,'');
     window.location.href = "/l/" + sd + "-" + ed;
 }
+function nintydays_submit(){
+    recent90daystart = new Date();
+    recent90daystart.setDate(-(90-recent90daystart.getDate()));
+    sd = $("#start_date").val(formatDate(recent90daystart)).val().replace(/-/gm,'');
+    ed = $("#end_date").val(formatDate(now)).val().replace(/-/gm,'');
+    window.location.href = "/l/" + sd + "-" + ed;
+}
 function csvexport_submit(){
     sd = $("#start_date").val().replace(/-/gm,'');
     ed = $("#end_date").val().replace(/-/gm,'');
