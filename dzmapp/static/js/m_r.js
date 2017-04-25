@@ -12,9 +12,28 @@ function saveform_submit(){
     }
     record_form.submit();
 }
+function setShowOffRecord(show){
+    if(show){
+        $("#showoff90dayrecord_btn").text("显示90天记录");
+    }else{
+        $("#showoff90dayrecord_btn").text("隐藏90天记录");
+    }
+}
 $(document).ready(function(){
     $.datepicker.setDefaults({
     dateFormat: "yy-mm-dd"
     });
     $( "#visit_date" ).val(formatDate(now));
+    showoff90dayrecord = false;
+    $("#showoff90dayrecord_btn").click(function(){
+        if(showoff90dayrecord == false){
+            addAllVisitedRecordToMap();
+            showoff90dayrecord = true;
+            setShowOffRecord(false);
+        }else{
+            hideAllVisitedRecordFromMap();
+            showoff90dayrecord = false;
+            setShowOffRecord(true);
+        }
+    });
 });

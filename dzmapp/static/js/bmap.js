@@ -117,7 +117,7 @@
         for(var i=0;i<data_info.length;i++){
             var marker = null;
             if(response == 1){
-                marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]),{icon:accept_icon});
+                marker = new BMap.Marker(new BMap.Point*-(data_info[i][0],data_info[i][1]),{icon:accept_icon});
             }else if(response == 0){
                 marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));
             }else if(response == 2){

@@ -69,8 +69,71 @@ function changemap2(){
         moveToPoint(tmp);
         //console.log("end move bmap to map2");
     },1000);
+    if($("#showoff90dayrecord_btn").length>0){
+        clear_visit_data_info();
+        if(showoff90dayrecord == false){
+            hideAllVisitedRecordFromMap();
+            setShowOffRecord(true);
+        }else{
+            addAllVisitedRecordToMap();
+            setShowOffRecord(false);
+        }
+    }
 }
 
+function clear_visit_data_info(){
+    accept_data_info.splice(0,accept_data_info.length);
+    refuse_data_info.splice(0,refuse_data_info.length);
+    visited_data_info.splice(0,visited_data_info.length);
+}
+
+function addAllVisitedRecordToMap(){
+    l1 = $("#map_select_level1").val();
+    l2 = $("#map_select_level2").find("option:selected").text();
+    recent30daystart = new Date();
+    recent30daystart.setDate(-(90-recent30daystart.getDate()));
+    sd = formatDate(recent30daystart).replace(/-/gm,'');
+    ed = formatDate(now).replace(/-/gm,'');
+    if(accept_data_info.length!=0 || refuse_data_info.length!=0 || visited_data_info!=0){
+         remove_overlays();
+         addAllMarkPoints();
+         return;
+    }
+    $.post("/api/ml/"+sd+"-"+ed+"/"+l1+"/"+l2,function(data){
+        clear_visit_data_info();
+        if($.isEmptyObject(data)){
+            if($("#show_page_info").length>0){
+                $("#show_page_info").text("["+l1+"-"+l2+"]地区90天内没有记录");
+            }
+        }else{
+            if($("#show_page_info").length>0){
+                $("#show_page_info").text("");
+            }
+        }
+        $.each(data, function(index, content)
+          {
+          if(content.response == "1"){
+            rv_str = content.name+","+content.num+"<b>续访</b>"+content.visit_date+"来过.";
+            accept_data_info.push([content.map_x,content.map_y,rv_str]);
+          }
+          if(content.response == "0"){
+            rv_str = content.name+","+content.num+"<b>拒绝</b>"+content.visit_date+"来过.";
+            refuse_data_info.push([content.map_x,content.map_y,rv_str]);
+          }
+          if(content.response == "2"){
+            rv_str = content.name+","+content.num+"<b>拜访过</b>"+content.visit_date+"来过.";
+            visited_data_info.push([content.map_x,content.map_y,rv_str]);
+          }
+          });
+          remove_overlays();
+         addAllMarkPoints();
+    });
+
+}
+
+function hideAllVisitedRecordFromMap(){
+    remove_overlays();
+}
 
 function get_current_territory_l1(){
     return $("#map_select_level1").val();

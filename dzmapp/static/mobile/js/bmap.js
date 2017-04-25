@@ -4,6 +4,12 @@
 		remove_overlays();
         remove_linelays();
     }
+	function remove_overlays2(){
+		for(var i = 0; i < overlays2.length; i++){
+            map.removeOverlay(overlays2[i]);
+        }
+        overlays2.length = 0;
+	}
 
 	function remove_overlays(){
 		for(var i = 0; i < overlays.length; i++){
@@ -20,11 +26,19 @@
 
 
 	function setPointOnMap(x,y){
-	    remove_overlays();
+	    remove_overlays2();
         var marker = new BMap.Marker(new BMap.Point(x,y));
         map.addOverlay(marker);
-	    map.panTo(new BMap.Point(x,y));
-        overlays[0] = marker;
+//	    map.panTo(new BMap.Point(x,y));
+        overlays2[0] = marker;
+        marker.enableDragging();
+        marker.addEventListener("dragend", function(e){
+            var pt = e.point;
+            geoc.getLocation(pt, function(rs){
+                var addComp = rs.addressComponents;
+                $("#record_form input[name='street']").val(addComp.district + ", " + addComp.street+ ","+addComp.streetNumber);
+            });
+        });
 	}
 
 	function moveToPointWithXY(x,y){
@@ -100,8 +114,12 @@
                 marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]),{icon:visited_icon});
             }
             var content = data_info[i][2];
-            map.addOverlay(marker);               // 将标注添加到地图中将标注添加到地图中
+            overlays.push(marker);
+//            map.addOverlay(overlays);               // 将标注添加到地图中将标注添加到地图中
 		    addClickHandler(content,marker);
+        }
+        for(var i = 0; i < overlays.length; i++){
+            map.addOverlay(overlays[i]);
         }
         map.removeEventListener("click",mapclick_fun);
 	}
@@ -125,8 +143,9 @@
 	var map = new BMap.Map("mapbody");
 	var point = new BMap.Point(116.404, 39.915);
 	map.centerAndZoom(point, 15);
+//	map.disableDragging();
+//	map.disablePinchToZoom();
 
-	map.enableDragging();
     var geoc = new BMap.Geocoder();
 
     var navigationControl = new BMap.NavigationControl({
@@ -143,6 +162,7 @@
   map.addControl(geolocationControl);
 
 	var overlays = [];
+	var overlays2 = []; // for alternative use
 	var linelays = [];
 
 
@@ -156,4 +176,5 @@
             $("#record_form input[name='street']").val(addComp.district + ", " + addComp.street+ ","+addComp.streetNumber);
         });
 	};
-	map.addEventListener("click",mapclick_fun);
+    map.addEventListener("touchend",mapclick_fun);
+//	map.addEventListener('touchend',function(e){elem = e.domEvent.srcElement;alert(elem);elem.click();});

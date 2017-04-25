@@ -11,6 +11,7 @@ var defaultlevel2 = '{{ level2 }}';
 var accept_data_info = [];
 var refuse_data_info = [];
 var visited_data_info = [];
+
 {% ifequal success "1" %}
 alert("已添加您的记录，谢谢努力工作 ^_^ ");
 {% endifequal %}
@@ -39,7 +40,9 @@ alert("已添加您的记录，谢谢努力工作 ^_^ ");
         <div class="mapheader" data-role="controlgroup"  data-type="horizontal" width="100%">
             <select id="map_select_level1"></select>
             <select id="map_select_level2"></select>
+            <button id="showoff90dayrecord_btn">显示90天记录</button>
         </div>
+        <div id="show_page_info" style="color:red"></div>
         <div id="mapbody" class="mapbody">
         </div>
     </div>
