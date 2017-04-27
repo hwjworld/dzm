@@ -58,6 +58,7 @@ urlpatterns = [
 
 # user
     url(r'^users/$', volunteer_views.users, name="users"),
-    url(r'^users/add$', volunteer_views.user_add, name="user_add")
+    url(r'^users/add$', volunteer_views.user_add, name="user_add"),
+    url(r'^users/cp$', volunteer_views.change_password, name="user_changepassword"),
 
 ]

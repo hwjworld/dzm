@@ -1,5 +1,3 @@
-import sys, traceback
-from django.conf.urls import url
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -7,6 +5,8 @@ from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.views import redirect_to_login
 from django.views.decorators.csrf import csrf_exempt, csrf_protect,ensure_csrf_cookie
 from django.http import HttpResponse
+from django.template.context import RequestContext
+from ...forms import ChangepwdForm
 
 
 def init_users(request):
@@ -32,6 +32,30 @@ def user_add(request):
         User.objects.create_user(username, email,password)
     users = User.objects.all()
     return render_to_response('volunteers/users.html',{'volunteers':users})
+
+@csrf_exempt
+@ensure_csrf_cookie
+@login_required
+def change_password(request):
+    if request.method == 'GET':
+        form = ChangepwdForm()
+        return render_to_response('volunteers/change_password.html', RequestContext(request, {'form': form,}))
+    else:
+        form = ChangepwdForm(request.POST)
+        if form.is_valid():
+            username = request.user.username
+            oldpassword = request.POST.get('oldpassword', '')
+            user = authenticate(username=username, password=oldpassword)
+            if user is not None and user.is_active:
+                newpassword = request.POST.get('newpassword1', '')
+                user.set_password(newpassword)
+                user.save()
+                return render_to_response('volunteers/change_password.html', RequestContext(request,{'changepwd_success':True}))
+            else:
+                return render_to_response('volunteers/change_password.html', RequestContext(request, {'form': form,'oldpassword_is_wrong':True}))
+        else:
+            return render_to_response('volunteers/change_password.html', RequestContext(request, {'form': form,}))
+
 
 
 def login_ajax(request):
