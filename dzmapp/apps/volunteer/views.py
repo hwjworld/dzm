@@ -42,6 +42,7 @@ def login_ajax(request):
         if user.is_active:
             login(request, user)
             # Redirect to a success page.
+            request.session.set_expiry(18000)
             return redirect('/menu')
 
         else:

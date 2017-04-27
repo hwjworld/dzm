@@ -1,16 +1,9 @@
-import datetime,time
-import csv,codecs,io
+import datetime
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse,HttpResponseRedirect
-from django.shortcuts import render_to_response, render
-from django.template import loader, Context
+from django.shortcuts import render_to_response
 from dzmapp.models import *
-from dzmapp.forms import *
-from django.views.decorators.csrf import csrf_exempt, csrf_protect,ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from django.core import serializers
-from django.forms.models import model_to_dict
-import json
 
 
 @csrf_exempt
@@ -50,8 +43,13 @@ def date_search_lookup(request,start_date,end_date):
 
 
 def date_search(start_date,end_date):
-    rs = P_Record.objects.filter(visit_date__lte=getTime(end_date),visit_date__gte=getTime(start_date)).order_by('visit_date')
-    return rs
+    rs_v = P_Record.objects.filter(visit_date__lte=getTime(end_date),visit_date__gte=getTime(start_date),
+                                 householder__response=2).order_by('visit_date')  # query visited records
+
+    oneyear_ago = datetime.datetime.strptime(end_date, '%Y%m%d')-datetime.timedelta(days=365)
+    rs_a_r = P_Record.objects.filter(visit_date__lte=getTime(end_date),visit_date__gte=oneyear_ago,
+                                 householder__response__in=[1,0]).order_by('visit_date') #query accept and refused records
+    return rs_v | rs_a_r # combine two queryset
 
 
 @login_required
@@ -65,13 +63,25 @@ def date_search_with_area_lookup(request,start_date,end_date,level1,level2):
 
 
 def date_search_with_area(start_date,end_date,map_level1,map_level2):
+    oneyear_ago = datetime.datetime.strptime(end_date, '%Y%m%d') - datetime.timedelta(days=365)
     if(map_level2 == '0'):
         map_ids = P_Map.objects.filter(level1=map_level1)
-        rs = P_Record.objects.filter(visit_date__lte=getTime(end_date),visit_date__gte=getTime(start_date),map_id__in=map_ids).order_by('visit_date')
+        rs_v = P_Record.objects.filter(visit_date__lte=getTime(end_date),visit_date__gte=getTime(start_date),
+                                     map_id__in=map_ids, householder__response=2).order_by('visit_date')
+
+        rs_a_r = P_Record.objects.filter(visit_date__lte=getTime(end_date), visit_date__gte=oneyear_ago,
+                                         map_id__in=map_ids, householder__response__in=[1, 0])\
+            .order_by('visit_date')  # query accept and refused records
+        rs = rs_v | rs_a_r
+
     else:
         map_id = P_Map.objects.get(level1=map_level1, level2=map_level2)
-        rs = P_Record.objects.filter(visit_date__lte=getTime(end_date),visit_date__gte=getTime(start_date),map_id=map_id).order_by('visit_date')
-
+        rs_v = P_Record.objects.filter(visit_date__lte=getTime(end_date),visit_date__gte=getTime(start_date),
+                                       map_id=map_id, householder__response=2).order_by('visit_date')
+        rs_a_r = P_Record.objects.filter(visit_date__lte=getTime(end_date), visit_date__gte=oneyear_ago,
+                                         map_id=map_id, householder__response__in=[1, 0])\
+            .order_by('visit_date')  # query accept and refused records
+        rs = rs_v | rs_a_r
     return rs
 
 def date_search_with_area_rs_sum(rs):
