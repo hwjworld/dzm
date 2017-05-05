@@ -63,11 +63,19 @@ float:left;
 width:25%;
 text-align:center;margin:0 auto;
 }
+
+.wrapper .mapcontainer{
+float:left;
+width:40%;
+height: 100%;
+}
+
 .wrapper .map{
 float:left;
 width:40%;
+top: 60px;
+position: fixed;
 }
-
 .wrapper .record_form{
 float:left;
 width:60%;

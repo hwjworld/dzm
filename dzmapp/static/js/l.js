@@ -43,6 +43,6 @@ $(document).ready(function(){
     $( "#start_date" ).datepicker({ dateFormat: "yy-mm-dd" });
     $( "#end_date" ).datepicker({ dateFormat: "yy-mm-dd" });
     $("[name='recordtr']").mouseover(function(){$(this).css("background","#FFD2D2");}).mouseout(function(){$(this).css("background","");}).click(function(){
-        moveToPoint($(this).attr("mapx"),$(this).attr("mapy"))
+        hightlightmarker($(this).attr("mapx"),$(this).attr("mapy"))
     });
 });

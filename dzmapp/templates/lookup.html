@@ -8,7 +8,7 @@
  {% if records|length > 0 %}
   {% for  v in records %}
     {% ifequal v.householder.response "1" %}
-  [{{ v.householder.map_x }},{{ v.householder.map_y }},"{{ v.householder.name }},{{v.householder.num}},{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}<b>拒绝</b>{% endifequal %}{% ifequal v.householder.response "2" %}<b>拜访过</b>{% endifequal %}, {{v.visit_date|date:"Y-m-d D"}}来过."],
+  [{{ v.householder.map_x }},{{ v.householder.map_y }},"{{ v.map.level1 }}-{{ v.map.level2 }},{{ v.householder.name }},{{v.householder.num}},{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}<b>拒绝</b>{% endifequal %}{% ifequal v.householder.response "2" %}<b>拜访过</b>{% endifequal %},{{v.volunteer.name}} {{v.visit_date|date:"Y-m-d D"}}来过."],
     {% endifequal %}
   {% endfor %}
 {% endif %}
@@ -17,7 +17,7 @@
  {% if records|length > 0 %}
   {% for  v in records %}
     {% ifequal v.householder.response "0" %}
-  [{{ v.householder.map_x }},{{ v.householder.map_y }},"{{ v.householder.name }},{{v.householder.num}},{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}<b>拒绝</b>{% endifequal %}{% ifequal v.householder.response "2" %}<b>拜访过</b>{% endifequal %}, {{v.visit_date|date:"Y-m-d D"}}来过."],
+  [{{ v.householder.map_x }},{{ v.householder.map_y }},"{{ v.map.level1 }}-{{ v.map.level2 }},{{ v.householder.name }},{{v.householder.num}},{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}<b>拒绝</b>{% endifequal %}{% ifequal v.householder.response "2" %}<b>拜访过</b>{% endifequal %}, {{v.volunteer.name}}{{v.visit_date|date:"Y-m-d D"}}来过."],
     {% endifequal %}
   {% endfor %}
 {% endif %}
@@ -26,12 +26,15 @@
  {% if records|length > 0 %}
   {% for  v in records %}
     {% ifequal v.householder.response "2" %}
-  [{{ v.householder.map_x }},{{ v.householder.map_y }},"{{ v.householder.name }},{{v.householder.num}},{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}<b>拒绝</b>{% endifequal %}{% ifequal v.householder.response "2" %}<b>拜访过</b>{% endifequal %}, {{v.visit_date|date:"Y-m-d D"}}来过."],
+  [{{ v.householder.map_x }},{{ v.householder.map_y }},"{{ v.map.level1 }}-{{ v.map.level2 }},{{ v.householder.name }},{{v.householder.num}},{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}<b>拒绝</b>{% endifequal %}{% ifequal v.householder.response "2" %}<b>拜访过</b>{% endifequal %},{{v.volunteer.name}} {{v.visit_date|date:"Y-m-d D"}}来过."],
     {% endifequal %}
   {% endfor %}
 {% endif %}
 ];
-$(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMarkPoints(refuse_data_info);addVisitedMarkPoints(visited_data_info);});
+$(document).ready(function(){
+addAcceptMarkPoints(accept_data_info);addRefuseMarkPoints(refuse_data_info);addVisitedMarkPoints(visited_data_info);
+
+});
 
 </script>
 {% endblock %}
@@ -58,7 +61,7 @@ $(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMark
             </table>
         </form>
         <table border="1" width="100%">
-            <tr><td>日期</td><td>姓名</td><td>性别</td><td>胡同(街)</td><td>门牌</td><td>反应</td><td>义工</td></tr>
+            <tr><td>日期</td><td>姓名</td><td>性别</td><td>胡同(街)</td><td>门牌</td><td>反应</td><td>义工</td><td>地区</td></tr>
 {% if records|length > 0 %}
   {% for  v in records %}
     <tr name="recordtr" id="record-{{ v.id }}" mapx="{{ v.householder.map_x }}" mapy="{{ v.householder.map_y }}">
@@ -69,6 +72,7 @@ $(document).ready(function(){addAcceptMarkPoints(accept_data_info);addRefuseMark
         <td>{{v.householder.num}}</td>
         <td>{% ifequal v.householder.response "1" %}<b>续访</b>{% endifequal %}{% ifequal v.householder.response "0" %}拒绝{% endifequal %}{% ifequal v.householder.response "2" %}去过{% endifequal %}</td>
         <td>{{v.volunteer}}</td>
+        <td>{{ v.map.level1 }}-{{ v.map.level2 }}</td>
     </tr>
   {% endfor %}
 {% else %}

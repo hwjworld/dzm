@@ -9,7 +9,9 @@
     */
 
 	var overlays = [];
+	var markeroverlays = {};
 	var linelays = [];
+	var current_chosen_marker = null;
 	function clearAll() {
 		remove_overlays();
         remove_linelays();
@@ -47,6 +49,19 @@
 
 	function moveToPoint(x,y){
 	    map.panTo(new BMap.Point(x,y));
+	}
+
+	function hightlightmarker(x,y){
+	    marker = markeroverlays[x+"-"+y];
+	    if(current_chosen_marker!=null){
+	        current_chosen_marker.setAnimation(null);
+        }
+	    if(marker != null){
+	        current_chosen_marker = marker;
+	        moveToPoint(x,y);
+//	    map.panTo(marker);
+	        marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+	    }
 	}
 
     //------------添加折线---------------
@@ -114,17 +129,22 @@
             offset: new BMap.Size(10, 25), // 指定定位位置
             imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
             });
+        var refuse_icon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+            offset: new BMap.Size(10, 25), // 指定定位位置
+            imageOffset: new BMap.Size(0, 0 - 12 * 25) // 设置图片偏移
+            });
         for(var i=0;i<data_info.length;i++){
             var marker = null;
             if(response == 1){
-                marker = new BMap.Marker(new BMap.Point*-(data_info[i][0],data_info[i][1]),{icon:accept_icon});
+                marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]),{icon:accept_icon});
             }else if(response == 0){
-                marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));
+                marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]),{icon:refuse_icon});
             }else if(response == 2){
                 marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]),{icon:visited_icon});
             }
             var content = data_info[i][2];
             map.addOverlay(marker);               // 将标注添加到地图中将标注添加到地图中
+            markeroverlays[data_info[i][0]+"-"+data_info[i][1]] = marker;
 		    addClickHandler(content,marker);
         }
         map.removeEventListener("click",mapclick_fun);
