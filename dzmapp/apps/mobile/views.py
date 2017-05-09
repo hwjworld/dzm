@@ -11,21 +11,21 @@ from django.http import JsonResponse
 def m(request):
     #html = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'/></head><body>开发中,返回<a href='/l'>主版本</a>.</body></html>"
     #return HttpResponse(html)
-    l1 = request.POST.get('l1','A')
-    l2 = request.POST.get('l2','0')
+    l1 = request.GET.get('l1','A')
+    l2 = request.GET.get('l2','0')
     return render_to_response("mobile/m_record.html",{'level1':l1, 'level2':l2})
 
 def m1(request,level1,level2):
-    volunteer_name=request.POST.get('v','')
-    success=request.POST.get('success','0')
+    volunteer_name=request.GET.get('v','')
+    success=request.GET.get('success','0')
     #html = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'/></head><body>开发中,返回<a href='/l'>主版本</a>.</body></html>"
     #return HttpResponse(html)
     return render_to_response("mobile/m_record.html",{'level1':level1, 'level2':level2,'volunteer_name':volunteer_name,'success':success})
 
 @login_required
 def ml(request):
-    l1 = request.POST.get('l1','A')
-    l2 = request.POST.get('l2','0')
+    l1 = request.GET.get('l1','A')
+    l2 = request.GET.get('l2','0')
     return render_to_response("mobile/m_lookup.html",{'level1':l1, 'level2':l2})
 
 def getTime(dtstr):
