@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <link href="{% static 'vendor/jquery-mobile/jquery.mobile-1.4.5.min.css' %}" rel="stylesheet"/>
-    <link rel="stylesheet" href="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.css">
+    <link href="{% static 'vendor/other/jquery.mobile.datepicker.css' %}" rel="stylesheet"/>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/jquery-mobile/jquery.mobile-1.4.5.min.js' %}"></script>
-    <script src="http://cdn.rawgit.com/jquery/jquery-ui/1.10.4/ui/jquery.ui.datepicker.js"></script>
-    <script id="mobile-datepicker" src="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.js"></script>
+    <script src="{% static 'vendor/other/jquery.ui.datepicker.js' %}"></script>
+    <script id="mobile-datepicker" src="{% static 'vendor/other/jquery.mobile.datepicker.js' %}"></script>
     {% block jsextra %}{% endblock %}
 
 	<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=09d48141d5414f05ba70c871b77934dd"></script>-->
