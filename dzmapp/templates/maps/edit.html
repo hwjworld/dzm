@@ -8,8 +8,8 @@
 {% block record_form %}
 <form id="mapaddform">
     {% csrf_token %}
-    大地区:<input name="level1" type="text" maxlength="2"/>
-    子地区:<input name="level2" type="text" maxlength="2"/>
+    大地区:<input name="level1" type="text"/>
+    子地区:<input name="level2" type="text"/>
     Polyline:<input name="polyline" type="text" />
     缩放级别:<input name="zoom" type="text" name="level1" readonly="readonly" />
     中心位置点X:<input name="mapx" type="text" readonly="readonly" />
