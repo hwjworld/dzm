@@ -33,8 +33,10 @@ urlpatterns = [
 # 0 = minimun value
     url(r'^map/level1/$', map_op.getMap,{'level1':'-1','level2':'-1'}),
     url(r'^map/level1/(?P<level1>\w{1})$', map_op.getMap,{'level2':'0'}),
-    url(r'^map/level1/(?P<level1>\w{1})/level2/$', map_op.getMap,{'level2':'-1'}),
-    url(r'^map/level1/(?P<level1>\w{1})/level2/(?P<level2>\w+)', map_op.getMap),
+    # url(r'^map/level1/(?P<level1>\w{*})/level2/$', map_op.getMap,{'level2':'-1'}),
+    # url(r'^map/level1/(?P<level1>\w{*})/level2/(?P<level2>\w+)', map_op.getMap),
+    url(r'^map/level1/(?P<level1>\w+)/level2/$', map_op.getMap,{'level2':'-1'}),
+    url(r'^map/level1/(?P<level1>\w+)/level2/(?P<level2>\w+)', map_op.getMap),
 
 # lookup
     url(r'^l$', dzmapp_view.lookup),
