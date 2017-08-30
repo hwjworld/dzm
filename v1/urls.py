@@ -55,8 +55,10 @@ urlpatterns = [
     url(r'^m/(?P<level1>\w{1})/(?P<level2>\w{1})', mobile_view.m1, name="m1"),
     url(r'^ml$', mobile_view.ml, name="m_lookup"),
     url(r'^ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})$', mobile_view.date_search_lookup),
-    url(r'^ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})/(?P<level1>\w{1})/(?P<level2>\w{1})$', mobile_view.date_search_with_area_lookup),
-    url(r'^api/ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})/(?P<level1>\w{1})/(?P<level2>\w{1})$', mobile_view.date_search_with_area_lookup_json),
+    # url(r'^ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})/(?P<level1>\w{1})/(?P<level2>\w{1})$', mobile_view.date_search_with_area_lookup),
+    # url(r'^api/ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})/(?P<level1>\w{1})/(?P<level2>\w{1})$', mobile_view.date_search_with_area_lookup_json),
+    url(r'^ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})/(?P<level1>.+)/(?P<level2>.+)$', mobile_view.date_search_with_area_lookup),
+    url(r'^api/ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})/(?P<level1>.+)/(?P<level2>.+)$', mobile_view.date_search_with_area_lookup_json),
 
 # user
     url(r'^users/$', volunteer_views.users, name="users"),
