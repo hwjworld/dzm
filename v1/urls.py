@@ -32,8 +32,7 @@ urlpatterns = [
 # -1 = list
 # 0 = minimun value
     url(r'^map/level1/$', map_op.getMap,{'level1':'-1','level2':'-1'}),
-    # url(r'^map/level1/(?P<level1>\w{1})$', map_op.getMap,{'level2':'0'}),
-    url(r'^map/level1/(?P<level1>.+)$', map_op.getMap,{'level2':'0'}),
+    url(r'^map/level1/(?P<level1>\w{1})$', map_op.getMap,{'level2':'0'}),
     # url(r'^map/level1/(?P<level1>\w{*})/level2/$', map_op.getMap,{'level2':'-1'}),
     # url(r'^map/level1/(?P<level1>\w{*})/level2/(?P<level2>\w+)', map_op.getMap),
     url(r'^map/level1/(?P<level1>.+)/level2/$', map_op.getMap,{'level2':'-1'}),
@@ -53,8 +52,7 @@ urlpatterns = [
 
 # mobile
     url(r'^m$', mobile_view.m, name="m"),
-    # url(r'^m/(?P<level1>\w{1})/(?P<level2>\w{1})', mobile_view.m1, name="m1"),
-    url(r'^m/(?P<level1>.+)/(?P<level2>.+)', mobile_view.m1, name="m1"),
+    url(r'^m/(?P<level1>\w{1})/(?P<level2>\w{1})', mobile_view.m1, name="m1"),
     url(r'^ml$', mobile_view.ml, name="m_lookup"),
     url(r'^ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})$', mobile_view.date_search_lookup),
     # url(r'^ml/(?P<start_date>\d{8})-(?P<end_date>\d{8})/(?P<level1>\w{1})/(?P<level2>\w{1})$', mobile_view.date_search_with_area_lookup),
